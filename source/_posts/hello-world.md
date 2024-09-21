@@ -5,15 +5,15 @@ Welcome to [Hexo](https://hexo.io/)! This is your very first post. Check [docume
 
 ## Quick Starterwerwer
 
-### Create a new postwerwerwer
+### Create a new postwerwerwerwewer
 
 ``` bash
-$ hexo new "My New Post"
+$ hexo new "My New Post"werwer
 ```
 
 More info: [Writing](https://hexo.io/docs/writing.html)
 
-### Run server
+### Run serverwerwer
 
 ``` bash
 $ hexo server
