@@ -14,7 +14,9 @@ tags:
 ## WEB STRUCTURE
 
 ### Cookie
-
+### .htaccess file
+### .DS_store file
+### robots.txt file
 #### 用途
 
 
