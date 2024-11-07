@@ -11,7 +11,7 @@
     "ggit": "git add . && git commit -m \"auto update (Power By Whitedragon)\" && git push",
     "goldball_is_gay": "git status",
     "dp": "hexo clean && hexo generate && hexo deploy",
-    "dpall": "git add . && git commit -m \"auto update (Power By Whitedragon)\" && git push && hexo clean && hexo generate && hexo deploy && echo --------------------!= Push All File =!--------------------",
+    "dpall": "git add . && git commit -m \"auto update (Power By Luc)\" && git push && hexo clean && hexo generate && hexo deploy && echo --------------------!= Push All File =!--------------------",
     "new": "hexo new hackclass RENAME"
   },
   "hexo": {

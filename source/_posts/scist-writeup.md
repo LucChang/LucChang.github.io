@@ -1,7 +1,7 @@
 ---
-title: scist_writeup
+title: Basic Linux
 date: 2024-11-06 19:23:27
-tags:
+tags: Linux
 ---
 
 # Linux
@@ -19,6 +19,18 @@ tags:
 
 
 
-> ## File Permission
+> ## The Git Command
+
+- **git clone + (Github URL)**
+- **git add + (File)**
+- **git add + .**
+- **git commit -m + (Add initial project files)**  
+- **git status**
+- **git push origin main**
+- **git pull origin main**
+- **git branch feature-branch**
+- **git checkout feature-branch**
+- **git merge feature-branch**
+
 
 
