@@ -81,5 +81,19 @@ I kind of downloading tool, often use in Debian operating system
 
 ### tar
 
+> ## Command
+find . -perm /4000 2>/dev/null
+將錯誤訊息redirect到其他的路徑"2"代表錯誤訊息
+
+
+
+> ## Hash
+hashcat -m 0 yourfile.txt /usr/share/wordlists/rockyou.txt hash爆破法
+
+> ## hydra
+
+防禦方式: 透過pulickey生成一個密碼與遠端裝置的密碼是同一個pair，所以就不是單純用密碼就能夠登入到遠端的機器，同時也會認裝置
+
+
 
 
