@@ -4,7 +4,7 @@ date: 2024-11-06 19:23:27
 tags: Linux
 ---
 
-# Linux
+# Linux test
 
 > ## Basic Linux Command
 - **pwd**: Display the current working directory. (print work directory)  
