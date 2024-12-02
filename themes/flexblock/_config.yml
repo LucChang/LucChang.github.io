@@ -1,21 +1,21 @@
 # Header
 menu:
-  首页: /
-  归档: /archives
-  友链: /links
-  关于: /about
+  首頁: /
+  歸類: /archives
+  朋友: /links
+  關於: /about
 
 # 主页banner图
-banner: https://aries.dyu.edu.tw/~w0719002/space-science/upload/images/project-image3.jpg
+banner: https://i.imgur.com/79b5X80.png
 
 # 站点通知信息
 notice: flex-block主题部分重构，详情查看https://github.com/miiiku/flex-block
 
 # 作者信息
 author:
-  name: Sukoshi
-  avatar: https://s.gravatar.com/avatar/2d6b803eea37de0257620d5fabee7e64?s=200&r=g&d=retro
-  description: 贵在坚持
+  name: Luc
+  avatar: https://i.imgur.com/jLq5nlE.jpeg
+  description: Hi world, Im luc
 
 toc:
   max_depth: 3 # 生成 TOC 的最大深度
@@ -103,5 +103,5 @@ social_icon:
     ins     :
     zhihu   :
     weibo   : 
-    github  : https://github.com/miiiku/
-    twitter : https://twitter.com/guanquanhong
+    github  : https://github.com/LucChang
+    twitter : https://discord.com/users/721990218567385179
