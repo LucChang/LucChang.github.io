@@ -102,6 +102,5 @@ theme: flexblock
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: 'git'
-  repo: https://github.com/LucChang/LucChang.github.io
+  repo: https://github.com/LucChang/LucChang.github.io.git
   branch: github-pages
-

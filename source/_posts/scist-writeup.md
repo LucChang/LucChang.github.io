@@ -94,6 +94,4 @@ hashcat -m 0 yourfile.txt /usr/share/wordlists/rockyou.txt hash爆破法
 
 防禦方式: 透過pulickey生成一個密碼與遠端裝置的密碼是同一個pair，所以就不是單純用密碼就能夠登入到遠端的機器，同時也會認裝置
 
-
-
-
+> ## drib
