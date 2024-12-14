@@ -22,7 +22,7 @@
 
   
 
-  <title>Basic Linux | Hexo</title>
+  <title>Python &amp; Pwntools | Hexo</title>
 
   
 
@@ -99,16 +99,16 @@
     <div class="header-content">
       <div class="post-text layout-block">
         <div class="layout-margin">
-          <h1 class="title-wrap">Basic Linux</h1>
+          <h1 class="title-wrap">Python &amp; Pwntools</h1>
           <h2 class="title-sub-wrap">
             <strong>John Doe</strong>
             <span>发布于</span>
-            <time  class="article-date" datetime="2024-11-06T11:23:27.000Z" itemprop="datePublished">2024-11-06</time>
+            <time  class="article-date" datetime="2024-11-19T05:59:45.000Z" itemprop="datePublished">2024-11-19</time>
           </h2>
           
             <h2 class="last-time">
               <span>最后更新于</span>
-              <time  class="article-updated" datetime="2024-12-10T17:24:06.639Z" itemprop="dateUpdated">2024-12-11</time>
+              <time  class="article-updated" datetime="2024-12-10T17:26:17.068Z" itemprop="dateUpdated">2024-12-11</time>
             </h2>
           
           
@@ -117,7 +117,7 @@
 </ul>
           <ul class="wrap-list dark">
   
-    <li><a href="/tags/Linux/">🏷️ Linux</a></li>
+    <li><a href="/tags/pwntools/">🏷️ pwntools</a></li>
   
 </ul>
         </div>
@@ -141,93 +141,21 @@
       
       
       <section class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box">
-        <h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><blockquote>
-<h2 id="Basic-Linux-Command"><a href="#Basic-Linux-Command" class="headerlink" title="Basic Linux Command"></a>Basic Linux Command</h2></blockquote>
+        <h1 id="Python-Pwntools"><a href="#Python-Pwntools" class="headerlink" title="Python &amp; Pwntools"></a>Python &amp; Pwntools</h1><h2 id="Base64-編碼"><a href="#Base64-編碼" class="headerlink" title="Base64 編碼"></a>Base64 編碼</h2><h3 id="Base64編解碼"><a href="#Base64編解碼" class="headerlink" title="Base64編解碼"></a>Base64編解碼</h3><p>需匯入 base64模組，語法：<em><strong>import base64</strong></em></p>
+<p>(2) Base64編碼方法：<em><strong>b64encode(bytes字串)<em><strong>，使用方法為&lt;模組名稱&gt;.&lt;方法名稱&gt;。<br>    如：</strong></em>base64.b64encode(b’ABCD’)</strong></em> ⇒ b’QUJDRA&#x3D;&#x3D;’<br>    註：b前綴的用意為將字元字串轉為python3專用bytes字串<br>(3) Base64解碼方法：<em><strong>b64decode(base64編碼字串)，</strong></em>如：<em><strong>base64.b64decode(b’TWFu’)</strong></em> ⇒ b’Man’</p>
+<h3 id="字元字串與bytes字串的差別"><a href="#字元字串與bytes字串的差別" class="headerlink" title="字元字串與bytes字串的差別"></a>字元字串與bytes字串的差別</h3><p>(1) 字元字串用於處理文字資料，bytes字串用於處理網路資料、電腦檔案等二進位資料。</p>
+<p>(2) 字元字串的元素是Unicode字元，bytes字串的元素是0~255的整數(8位元)。</p>
+<p>(3) 在Python中，可用前綴 u 或 U 來表示一個字元字串，如：u’Hello’。</p>
+<p>(4) 在Python中，可用前綴 b 或 B 來表示一個bytes字串，如：b’Hello’。</p>
+<h2 id="Python-結合資安應用"><a href="#Python-結合資安應用" class="headerlink" title="Python 結合資安應用"></a>Python 結合資安應用</h2><blockquote>
+<h3 id="pwntools-相關語法與功能"><a href="#pwntools-相關語法與功能" class="headerlink" title="pwntools 相關語法與功能"></a>pwntools 相關語法與功能</h3></blockquote>
 <ul>
-<li><strong>pwd</strong>: Display the current working directory. (print work directory)  </li>
-<li><strong>ls</strong>: List directory contents. (list)  </li>
-<li><strong>cd</strong>: Change the current directory. (change directory)  </li>
-<li><strong>mkdir</strong>: Create a new directory. (make directory)  </li>
-<li><strong>touch</strong>: Create a new, empty file.  </li>
-<li><strong>rm</strong>: Delete files or directories. (remove)  </li>
-<li><strong>cp</strong>: Copy files or directories. (copy)  </li>
-<li><strong>mv</strong>: Move or rename files or directories. (move)  </li>
-<li><strong>cat</strong>: Display the contents of a file. (concatenate)</li>
+<li><strong>interactive</strong></li>
+<li><strong>recvline</strong></li>
+<li><strong>sendline</strong></li>
+<li><strong>encode &amp; decode</strong></li>
+<li><strong>remote</strong></li>
 </ul>
-<blockquote>
-<h2 id="The-Git-Command"><a href="#The-Git-Command" class="headerlink" title="The Git Command"></a>The Git Command</h2></blockquote>
-<ul>
-<li><strong>git clone + (Github URL)</strong></li>
-<li><strong>git add + (File)</strong></li>
-<li><strong>git add + .</strong></li>
-<li><strong>git commit -m + (Add initial project files)</strong>  </li>
-<li><strong>git status</strong></li>
-<li><strong>git push origin main</strong></li>
-<li><strong>git pull origin main</strong></li>
-<li><strong>git branch feature-branch</strong></li>
-<li><strong>git checkout feature-branch</strong></li>
-<li><strong>git merge feature-branch</strong></li>
-</ul>
-<blockquote>
-<h2 id="apt-Advanced-Packing-Tool"><a href="#apt-Advanced-Packing-Tool" class="headerlink" title="apt (Advanced Packing Tool)"></a>apt (Advanced Packing Tool)</h2><p>I kind of downloading tool, often use in Debian operating system</p>
-</blockquote>
-<ul>
-<li><strong>sudo apt update</strong> (update the things you can download)</li>
-<li><strong>sudo apt upgrade</strong> (upgrade the things that have downloaded)</li>
-</ul>
-<blockquote>
-<h2 id="Network-and-Remote-Acess"><a href="#Network-and-Remote-Acess" class="headerlink" title="Network and Remote Acess"></a>Network and Remote Acess</h2></blockquote>
-<ul>
-<li><strong>ping</strong>: Send ICMP ECHO_REQUEST to network hosts (To check whether the Ip address(or host) exist, and check connection status) ex. </li>
-<li><strong>wget</strong>: 下載檔案能夠在Terminal裡面編輯 wget <a target="_blank" rel="noopener" href="https://www.example.com/">https://www.example.com</a> -O hello.txt</li>
-<li><strong>curl</strong>： 與伺服器端進行互動，像是可以向伺服器進行POST或是GET等操作</li>
-<li><strong>ssh</strong>: 連線到一台機器進行遠端操控等  ex. ssh -p 2222 user@youripaddress  port是依照不同機器有自己的port也可以自己設定</li>
-<li><strong>scp</strong>: 與ssh相似，可以將其他機器的檔案傳輸、複製到自己目前所用的機器 ex. scp user@youripaddress:file_path .&#x2F;</li>
-</ul>
-<blockquote>
-<h2 id="System-Information-and-Monitoring"><a href="#System-Information-and-Monitoring" class="headerlink" title="System Information and Monitoring"></a>System Information and Monitoring</h2></blockquote>
-<ul>
-<li><strong>whoami</strong></li>
-</ul>
-<blockquote>
-<h2 id="Piping-and-Redirection"><a href="#Piping-and-Redirection" class="headerlink" title="Piping and Redirection"></a>Piping and Redirection</h2></blockquote>
-<ul>
-<li><strong>|</strong>: 將目前的結果傳至下一個指令 ex. cat flag | rev</li>
-<li><strong>&gt;</strong>: 將要寫的東西寫入某個檔案 ex. echo “hello” &gt; hello.txt  </li>
-<li><strong>&gt;&gt;</strong>: 在已存在的檔案進行近一步的編寫，不會將之前的內容覆蓋 ex. echo “hello &gt;&gt; hello.txt</li>
-</ul>
-<h3 id="額外常與-piping-和-Redirecting-的參數"><a href="#額外常與-piping-和-Redirecting-的參數" class="headerlink" title="額外常與 piping 和 Redirecting 的參數"></a>額外常與 piping 和 Redirecting 的參數</h3><ul>
-<li><strong>less</strong> </li>
-<li><strong>more</strong></li>
-<li><strong>head</strong></li>
-<li><strong>tail</strong><br>使用方式：find –help | less or more or head or tail</li>
-</ul>
-<blockquote>
-<h2 id="vim"><a href="#vim" class="headerlink" title="vim"></a>vim</h2></blockquote>
-<ul>
-<li><strong>i</strong>: (insert) 按下這個鍵位時即可編輯程式碼</li>
-<li><strong>esc</strong>: 退出編輯模式，可以執行其他的指令或是其他操作等</li>
-<li><strong>:</strong>: 當按下esc後可以按下這個鍵，即可打入你想要搭配的指令像是q、w等</li>
-<li><strong>y</strong>:</li>
-<li><strong>p</strong>:</li>
-<li><strong>d</strong>:</li>
-<li><strong>v</strong>:</li>
-</ul>
-<blockquote>
-<h2 id="Shell-Script"><a href="#Shell-Script" class="headerlink" title="Shell Script"></a>Shell Script</h2></blockquote>
-<h3 id="Bash-Shell-Script內部函式，可以執行Shell-Script檔案"><a href="#Bash-Shell-Script內部函式，可以執行Shell-Script檔案" class="headerlink" title="Bash: Shell Script內部函式，可以執行Shell Script檔案"></a><strong>Bash</strong>: Shell Script內部函式，可以執行Shell Script檔案</h3><blockquote>
-<h2 id="rar-zip-tar-壓縮檔差別"><a href="#rar-zip-tar-壓縮檔差別" class="headerlink" title="rar &amp; zip &amp; tar 壓縮檔差別"></a>rar &amp; zip &amp; tar 壓縮檔差別</h2></blockquote>
-<h3 id="rar"><a href="#rar" class="headerlink" title="rar"></a>rar</h3><h3 id="zip"><a href="#zip" class="headerlink" title="zip"></a>zip</h3><h3 id="tar"><a href="#tar" class="headerlink" title="tar"></a>tar</h3><blockquote>
-<h2 id="Command"><a href="#Command" class="headerlink" title="Command"></a>Command</h2><p>find . -perm &#x2F;4000 2&gt;&#x2F;dev&#x2F;null<br>將錯誤訊息redirect到其他的路徑”2”代表錯誤訊息</p>
-</blockquote>
-<blockquote>
-<h2 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h2><p>hashcat -m 0 yourfile.txt &#x2F;usr&#x2F;share&#x2F;wordlists&#x2F;rockyou.txt hash爆破法</p>
-</blockquote>
-<blockquote>
-<h2 id="hydra"><a href="#hydra" class="headerlink" title="hydra"></a>hydra</h2></blockquote>
-<p>防禦方式: 透過pulickey生成一個密碼與遠端裝置的密碼是同一個pair，所以就不是單純用密碼就能夠登入到遠端的機器，同時也會認裝置</p>
-<blockquote>
-<h2 id="drib"><a href="#drib" class="headerlink" title="drib"></a>drib</h2></blockquote>
 
       </section>
 
@@ -240,8 +168,8 @@
     
     <div class="card-text">
       
-        <a href="/2024/11/19/Python-Pwntools/" itemprop="url">
-          <h2 class="card-text--title text-ellipsis">Python &amp; Pwntools</h2>
+        <a href="/2024/12/11/Crypto/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">Crypto</h2>
         </a>
       
       <div class="card-text--row">Newer</div>
@@ -249,6 +177,20 @@
   </article>
 </div>
           
+          
+            <div class="article-nav-item layout-padding">
+  <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
+    
+    <div class="card-text">
+      
+        <a href="/2024/11/06/scist-writeup/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">Basic Linux</h2>
+        </a>
+      
+      <div class="card-text--row">Older</div>
+    </div>
+  </article>
+</div>
           
         </nav>
       
