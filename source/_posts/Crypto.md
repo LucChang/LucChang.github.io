@@ -16,10 +16,17 @@ tags: 密碼學
 - 加解密的速度快
 
 ### Stream cipher
-
-- 又稱資料流加密、劉嘉蜜
+- 又稱資料流加密、流加密
 - 通常是以bit為單位做Xor 運算
-- 目前
+
+
+
+**Synchronous stream cipher**
+- RC4 (Rivest Cipher)
+- 
+
+**Self-Synchronous stream cipher**
+
 
 
 
