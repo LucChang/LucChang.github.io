@@ -31,14 +31,34 @@ tags: 密碼學
 
 **OTP**
 - RNG (Random Number Generator)
-- 一次性密碼本，必ㄕ須是 Truly Random 產生
+- 一次性密碼本，必須是 Truly Random 產生
 - 理論上被證明具有完善保密性
 - 密碼至少要和資料一樣長
 - 只能被用一次，用完就要丟
 - 傳輸密碼本的通道必須安全
 
 
-**LCG**
+**LCG** (待筆記)
+
+
+
+
+**Mersenne Twister 梅森旋轉算法**
+生成亂數方法
+- 輸入 seed 擴展成 624 個 state
+- 以舊的 state 生成下一輪 state
+- 取 state 值加料後輸出隨機值
+- state 用完了從第二步驟重複
+
+**/dev/radnom**
+- 類UNIX系統中是一個特殊的裝置檔案，可以用作亂數發生
+
+
+
+
+
+
+
 
 
 
