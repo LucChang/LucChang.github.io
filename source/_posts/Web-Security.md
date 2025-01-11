@@ -44,8 +44,17 @@ tags:
 
 
 **robots.txt**
+告訴爬蟲哪些路徑能爬，哪些不行
+有可能會洩漏敏感路徑！
+- ex. 管理後臺、備份檔路徑
 
 **Git Leak**
+版本控制系統
+可還原網站原始碼
+- 工具 https://github.com/lijiejie/GitHack
+
 **google hacking**
 
 ![image.png](https://public-imgbed.pages.dev/file/1736316233341_image.png)
+
+註：https://www.exploit-db.com/google-hacking-database
