@@ -1,7 +1,7 @@
 ---
 title: Web Security
 date: 2025-01-08 09:15:34
-tags:
+tags: web
 ---
 # Web Security
 ### HTTP
