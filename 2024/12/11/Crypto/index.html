@@ -108,7 +108,7 @@
           
             <h2 class="last-time">
               <span>最后更新于</span>
-              <time  class="article-updated" datetime="2024-12-24T11:13:14.160Z" itemprop="dateUpdated">2024-12-24</time>
+              <time  class="article-updated" datetime="2025-01-13T05:24:20.237Z" itemprop="dateUpdated">2025-01-13</time>
             </h2>
           
           
@@ -151,7 +151,7 @@
 <li>通常是以bit為單位做Xor 運算</li>
 </ul>
 <h2 id="Synchronous-stream-cipher-RC4-Rivest-Cipher"><a href="#Synchronous-stream-cipher-RC4-Rivest-Cipher" class="headerlink" title="Synchronous stream cipher- RC4 (Rivest Cipher)"></a><strong>Synchronous stream cipher</strong><br>- RC4 (Rivest Cipher)</h2><p><strong>Self-Synchronous stream cipher</strong></p>
-<p><strong>OTP</strong></p>
+<p><strong>OTP(one time password)</strong></p>
 <ul>
 <li>RNG (Random Number Generator)</li>
 <li>一次性密碼本，必須是 Truly Random 產生</li>
@@ -160,7 +160,13 @@
 <li>只能被用一次，用完就要丟</li>
 <li>傳輸密碼本的通道必須安全</li>
 </ul>
-<p><strong>LCG</strong> (待筆記)</p>
+<p><strong>LCG</strong> (待筆記)<br>公式：Xn+1 &#x3D; (aXn + b) mod m<br>加密方法</p>
+<ul>
+<li>線性同餘方法</li>
+<li>運算速度快、易寫、佔用記憶體少</li>
+</ul>
+<p>解密：<br>通常在式a, b, m等未知數都不知道時</p>
+<p>思路：需要先求出 m<br>如果能拿到足夠多 m 的倍數 m1, m2, m3…<br>gcd(m1, m2, m3, …) 大概率會算出 m<br>先找到 m 的倍數 (需要消掉 a)<br>t0 &#x3D; x0 - x1 (mod m)<br>t1 &#x3D; x1 - x2 &#x3D; a * (x0 - x1) &#x3D; a * t0 (mod m)<br>t2 &#x3D; x2 - x3 &#x3D; a * (x1 - x2) &#x3D; a * t1 (mod m)<br>→ t0 * t2 - t1 * t1 &#x3D; t0 * (a2 * t0) - (a * t0) * (a * t0) &#x3D; 0 (mod m)<br>生出一堆 m 的倍數<br>m1 &#x3D; (x0 - x1) * (x2 - x3) - (x1 - x2) * (x1 - x2)<br>m2 &#x3D; (x1 - x2) * (x3 - x4) - (x2 - x3) * (x2 - x3)<br>m3 &#x3D; (x2 - x3) * (x4 - x5) - (x3 - x4) * (x3 - x4)</p>
 <p><strong>Mersenne Twister 梅森旋轉算法</strong><br>生成亂數方法</p>
 <ul>
 <li>輸入 seed 擴展成 624 個 state</li>
@@ -172,6 +178,8 @@
 <ul>
 <li>類UNIX系統中是一個特殊的裝置檔案，可以用作亂數發生</li>
 </ul>
+<p><strong>AES</strong></p>
+<p>ECB MODE:<br>將要加密的東西分成不同的block，每個block有可能是16bits, 32bits或是64bits，每個block都加密後隨便組合 </p>
 
       </section>
 
@@ -254,7 +262,7 @@
         <svg class="icon icon-tags" viewBox="0 0 1098 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <path d="M283.42180005 272q0-28.38857157-20.09142843-48.48000001t-48.47999998-20.09142842-48.48000002 20.09142842-20.09142846 48.48000001 20.09142846 48.48 48.48000002 20.09142843 48.47999998-20.09142843 20.09142843-48.48zM855.0332285 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.03999997 263.58857157q-20.9142853 19.81714313-48.75428534 19.81714312-28.38857157 0-48.20571468-19.81714312l-383.04-383.58857157q-20.36571468-19.81714313-34.55999999-54.10285688t-14.19428534-62.6742853l0-222.85714313q0-27.84000002 20.36571469-48.20571469t48.2057147-20.36571466l222.85714313 0q28.38857157 0 62.6742853 14.19428529t54.65142842 34.55999999l383.04000001 382.49142843q19.81714313 20.9142853 19.81714314 48.75428532zM1060.74751475 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.04 263.58857157q-20.9142853 19.81714313-48.75428531 19.81714312-19.26857155 0-31.61142843-7.47428531t-28.38857159-24.13714314l251.79428534-251.7942853q19.81714313-19.81714313 19.81714308-48.20571469 0-27.84000002-19.81714308-48.75428531l-383.04000001-382.49142845q-20.36571468-20.36571468-54.65142842-34.55999999t-62.67428532-14.19428534l120 0q28.38857157 0 62.67428532 14.19428534t54.65142842 34.55999999l383.03999998 382.49142845q19.81714313 20.9142853 19.81714314 48.75428531z" fill="currentColor"></path>
 </svg>
-        3
+        4
       </div>
     </div>
   </div>
@@ -299,7 +307,7 @@
   </div>
   <div class="widget-body">
     <div class="tags-cloud">
-      <a href="/tags/Linux/" style="font-size: 10px;" class="tags-cloud-0">Linux</a> <a href="/tags/pwntools/" style="font-size: 10px;" class="tags-cloud-0">pwntools</a> <a href="/tags/%E5%AF%86%E7%A2%BC%E5%AD%B8/" style="font-size: 10px;" class="tags-cloud-0">密碼學</a>
+      <a href="/tags/Linux/" style="font-size: 10px;" class="tags-cloud-0">Linux</a> <a href="/tags/pwntools/" style="font-size: 10px;" class="tags-cloud-0">pwntools</a> <a href="/tags/web/" style="font-size: 10px;" class="tags-cloud-0">web</a> <a href="/tags/%E5%AF%86%E7%A2%BC%E5%AD%B8/" style="font-size: 10px;" class="tags-cloud-0">密碼學</a>
     </div>
   </div>
 </section>
