@@ -58,3 +58,15 @@ tags: web
 ![image.png](https://public-imgbed.pages.dev/file/1736316233341_image.png)
 
 註：https://www.exploit-db.com/google-hacking-database
+
+
+
+**Web 兩種型態**
+
+File-base：將檔案映射到檔案路徑下
+
+route base：定義路由，會有對應的function，並且到路由的路徑時就會運行function
+
+**Web Shell**
+
+![image.png](https://public-imgbed.pages.dev/file/1739931892435_image.png)

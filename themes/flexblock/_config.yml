@@ -9,13 +9,13 @@ menu:
 banner: https://aries.dyu.edu.tw/~w0719002/space-science/upload/images/project-image3.jpg
 
 # 站点通知信息
-notice: flex-block主题部分重构，详情查看https://github.com/miiiku/flex-block
+notice: 
 
 # 作者信息
 author:
-  name: Sukoshi
-  avatar: https://s.gravatar.com/avatar/2d6b803eea37de0257620d5fabee7e64?s=200&r=g&d=retro
-  description: 贵在坚持
+  name: LucChang
+  avatar: https://public-imgbed.pages.dev/file/1739948460764_image.png
+  description: 菜機工程師努力便強大
 
 toc:
   max_depth: 3 # 生成 TOC 的最大深度
@@ -93,15 +93,15 @@ baidu_analytics:
 # 腾讯分析
 tencent_analytics: 
 # 站点ico
-favicon: /favicon.ico
+favicon: /goldball_face.ico
 
 
 # Social Icon
 social_icon:
   enable: true
   icons:
-    ins     :
+    ins     : https://www.instagram.com/happyluc1114/
     zhihu   :
     weibo   : 
-    github  : https://github.com/miiiku/
-    twitter : https://twitter.com/guanquanhong
+    github  : https://github.com/LucChang?tab=repositories
+    twitter : https://x.com/longmayi248272
