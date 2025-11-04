@@ -87,6 +87,9 @@ string.rot13|covert.base64-encode(編碼方式透過|pipeline讓字串用不同�
 - https://github.com/synacktiv/php_filter_chain_generator/blob/main/php_filter_chain_generator.py
 - https://github.com/wupco/PHP_INCLUDE_TO_SHELL_CHAR_DICT
 
+
+
+
 ### Injection 
 
 - Code Injection
@@ -130,4 +133,104 @@ reference：https://github.com/w181496/Web-CTF-Cheatsheet?tab=readme-ov-file#php
 ![image.png](https://public-imgbed.pages.dev/file/1741311849826_image.png)
 
 Blind Base：Blind-Base 的核心在於利用與法規則來獲得部分答案的正確性，從而迭帶出答案
+
+
+
+### SSRF 
+
+伺服器端請求偽造，可以請求到伺服器內網或是其他網域等
+
+
+
+### Frontend Security
+- XSS
+- CSRF
+- XSLeaks
+- Lax + POST 
+- JavaScript pseudo protocal  
+- Context-aware XSS
+
+### XSS
+- 跨網站指令碼(cross-site scripting) 
+- 讓別人的前端執行攻擊者的 JavaScript
+- 常發生在未妥善處理輸入，進而被輸入XSS攻擊代碼 例： "html的input標籤 、 alert等
+
+
+**XSS 分類(根據payload的來源)**
+- Reflected XSS：從後端傳到前端，出現了XSS payload
+- Stored XSS：payload 備取在database裡面，每次client請求就會出現XSS payload
+- DOM-based XSS：使用DOM的操作在前端產生XSS payload 
+
+
+
+**Reflected XSS**
+![image.png](https://public-imgbed.pages.dev/file/1743675251379_image.png)
+**Stored XSS**
+![image.png](https://public-imgbed.pages.dev/file/1743675232285_image.png)
+
+**DOM XSS**
+![image.png](https://public-imgbed.pages.dev/file/1743675245721_image.png)
+
+
+
+**常見的XSS Payload**
+- fetch() 將資料傳出去
+- document.cookie 拿到 Cookies
+- html2canvas 可做到螢幕截圖
+- keylogger
+- alert
+etc..
+
+
+**XSS worm**
+- 與一般XSS不同的是，他會選擇注入惡意 javascript 到其他客戶端，導致payload 在使用端互相注入
+- 擴大危害的手法
+
+**XSS prevent**
+- HTML Sanitize
+  - 將 HTML 中危險的部分處理掉
+    - 但是很難將所有情況完美處理
+- Dom purify
+  - 被廣泛使用，已經很難在上面找到缺漏
+    - 但不正確使用仍會造成資安問題
+- CSP
+  -透過網頁上規範白名單規則，讓瀏覽器控制對外部的請求
+
+
+**CSP XSS prevent**
+![image.png](https://public-imgbed.pages.dev/file/1743771551950_image.png)
+![image.png](https://public-imgbed.pages.dev/file/1743778053004_image.png)
+常見的CSP Directive
+- default-src
+- script-src
+- image-src
+- connect-src
+- style-src
+- navigate-to
+![image.png](https://public-imgbed.pages.dev/file/1743771762893_image.png)
+
+
+**CSP bypassing - via JSONP
+
+
+
+
+**javascript 偽協議**
+
+s
+
+
+
+
+
+
+
+
+### Self-XSS
+### Blind XSS 
+XSS 在看不到的地方與不知道的時間點被執行
+
+
+
+
 
