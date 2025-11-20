@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color" content="#3367D6"/>
+  <link rel="apple-touch-icon" href="/icons-192.png">
+  <link rel="manifest" href="/manifest.json">
+  
+  <meta name="generator" content="Hexo 7.3.0">
+
+  
+
+  
+    <meta name="keywords" content="資訊安全,網站安全,網站攻擊,網站防護,網站漏洞,網站攻擊工具,網站防護工具,網站漏洞工具">
+  
+
+  
+    <meta name="author" content="LucChang">
+  
+
+  
+
+  
+
+  <title>scist reverse | 筆記收藏匣</title>
+
+  
+
+  
+    <link rel="shortcut icon" href="/goldball_face.ico">
+  
+
+  
+
+  
+
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body>
+  <div class="root-container">
+    
+<!-- header container -->
+<header class="header-container post">
+  
+    <div class="post-image" style="background-image: url(https://0af5db21.public-imgbed.pages.dev/file/1762521670450_6F1A5525-A7C0-4701-BE20-CD8F3F9868DB.jpg)"></div>
+  
+
+  <!-- navbar -->
+<nav class="navbar">
+  <div class="navbar-content">
+    <!-- logo -->
+    <div class="navbar-logo">
+      <a href="/">
+        
+          LucChang Blog
+        
+      </a>
+    </div>
+    <!-- link -->
+    <div class="navbar-link">
+      <div class="navbar-btn">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <ul class="navbar-list">
+        
+          <li class="navbar-list-item"><a href="/">首頁</a></li>
+        
+          <li class="navbar-list-item"><a href="/archives">歸檔</a></li>
+        
+          <li class="navbar-list-item"><a href="/links">朋友</a></li>
+        
+          <li class="navbar-list-item"><a href="/about">關於我</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+    <div class="header-content">
+      <div class="post-text layout-block">
+        <div class="layout-margin">
+          <h1 class="title-wrap">scist reverse</h1>
+          <h2 class="title-sub-wrap">
+            <strong>LucChang</strong>
+            <span>发布于</span>
+            <time  class="article-date" datetime="2025-04-26T11:44:44.000Z" itemprop="datePublished">2025-04-26</time>
+          </h2>
+          
+            <h2 class="last-time">
+              <span>最后更新于</span>
+              <time  class="article-updated" datetime="2025-11-04T15:42:23.794Z" itemprop="dateUpdated">2025-11-04</time>
+            </h2>
+          
+          
+          <ul class="wrap-list dark">
+  
+</ul>
+          <ul class="wrap-list dark">
+  
+    <li><a href="/tags/cyber-security-reverse/">🏷️ cyber-security, reverse</a></li>
+  
+</ul>
+        </div>
+      </div>
+    </div>
+  
+
+  
+  
+  
+</header>
+
+    <!-- 文章 -->
+
+<!-- 文章内容 -->
+<div class="body-container">
+  <article class="content-container layout-block post-container">
+    <div class="article-info">
+      
+      
+      
+      
+      <section class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box">
+        <h1 id="我獨自逆向-Reverse-課程筆記"><a href="#我獨自逆向-Reverse-課程筆記" class="headerlink" title="我獨自逆向:Reverse - 課程筆記"></a>我獨自逆向:Reverse - 課程筆記</h1><h3 id="第二部分：逆向工程核心概念"><a href="#第二部分：逆向工程核心概念" class="headerlink" title="第二部分：逆向工程核心概念"></a><strong>第二部分：逆向工程核心概念</strong></h3><h4 id="逆向工程介紹-Introduction-to-Reverse-Engineering"><a href="#逆向工程介紹-Introduction-to-Reverse-Engineering" class="headerlink" title="逆向工程介紹 (Introduction to Reverse Engineering)"></a><strong>逆向工程介紹 (Introduction to Reverse Engineering)</strong></h4><ul>
+<li><strong>廣義定義:</strong> 理解某個事物（軟體、硬體、遊戲等）的內部運作原理。<ul>
+<li>應用範疇：惡意程式分析、軟體授權破解、開發硬體替代零件或遊戲插件等。</li>
+</ul>
+</li>
+<li><strong>狹義定義 (本課程焦點):</strong><ul>
+<li>將高階程式語言編譯後的機器碼或組合語言，逆向推導回原始的程式邏輯。</li>
+<li>主要流程：高階語言 -&gt; (編譯) -&gt; 組合語言 -&gt; (組譯) -&gt; 機器碼。逆向工程則是反向操作。</li>
+</ul>
+</li>
+<li><strong>為何學習:</strong> 提升安全性、學術研究、改進與創新、恢復遺失的資料。</li>
+<li><strong>如何進行:</strong><ul>
+<li><strong>靜態分析:</strong> 在不執行程式的情況下分析其程式碼、結構與資源。</li>
+<li><strong>動態分析:</strong> 在程式執行時觀察其行為、記憶體變化與系統互動。</li>
+</ul>
+</li>
+<li><strong>本課程聚焦:</strong> 以 C&#x2F;C++ 編寫、基於 x86 指令集架構的應用程式逆向工程。</li>
+</ul>
+<h4 id="執行檔分析-Executable-File-Analysis"><a href="#執行檔分析-Executable-File-Analysis" class="headerlink" title="執行檔分析 (Executable File Analysis)"></a><strong>執行檔分析 (Executable File Analysis)</strong></h4><ul>
+<li><strong>常見格式:</strong><ul>
+<li><strong>ELF (Executable and Linkable Format):</strong> Linux, Unix-like 系統。</li>
+<li><strong>PE (Portable Executable):</strong> Windows 系統 (.exe, .dll)。</li>
+<li><strong>Mach-O (Mach Object):</strong> macOS, iOS 系統。</li>
+</ul>
+</li>
+<li><strong>ELF Header:</strong><ul>
+<li>作業系統透過讀取檔案的 Header 來了解其格式與執行方式。</li>
+<li>Header 包含魔術數字 (Magic Number) <code>7f 45 4c 46</code> (.ELF)，以及程式的進入點位址 (Entry point address)、架構 (e.g., x86-64)、Program headers&#x2F;Section headers 的位置等資訊。</li>
+</ul>
+</li>
+<li><strong>Program Header:</strong><ul>
+<li>描述作業系統如何將檔案載入記憶體，定義了多個 Segment (如 LOAD, INTERP)。</li>
+<li>每個 Segment 都有指定的虛擬位址 (VirtAddr) 和權限 (Read, Write, Execute)。</li>
+</ul>
+</li>
+<li><strong>Section Header:</strong><ul>
+<li>將檔案內容劃分為不同的 Section，各自有不同用途與權限。</li>
+<li><strong>.text (R-X):</strong> 存放可執行的程式碼。</li>
+<li><strong>.rodata (R–):</strong> 存放唯讀資料，如字串常數。</li>
+<li><strong>.data (RW-):</strong> 存放已初始化的全域變數。</li>
+<li><strong>.bss (RW-):</strong> 存放未初始化的全域變數。</li>
+</ul>
+</li>
+<li><strong>虛擬位址 (Virtual Address, VA):</strong><ul>
+<li>程式執行時使用的記憶體位址，由作業系統的虛擬記憶體管理器 (VMM) 映射到實體記憶體。</li>
+<li>好處包含：各程序記憶體空間獨立、支援位址空間配置隨機化 (ASLR) 以增強安全性。</li>
+</ul>
+</li>
+</ul>
+<h3 id="第三部分：C-語言與-x86-組合語言"><a href="#第三部分：C-語言與-x86-組合語言" class="headerlink" title="第三部分：C 語言與 x86 組合語言"></a><strong>第三部分：C 語言與 x86 組合語言</strong></h3><h4 id="Linux-C-開發基礎"><a href="#Linux-C-開發基礎" class="headerlink" title="Linux &amp; C 開發基礎"></a><strong>Linux &amp; C 開發基礎</strong></h4><ul>
+<li><strong>C 語言特性:</strong><ul>
+<li>因其較接近底層，需手動管理記憶體 (malloc&#x2F;free)，有助於理解電腦運作。</li>
+<li>是學習逆向工程的良好起點，也常用於開發惡意程式。</li>
+</ul>
+</li>
+<li><strong>基本語法回顧:</strong><ul>
+<li><strong>編譯:</strong> 使用 GCC <code>gcc -o &lt;output_file&gt; &lt;source_file.c&gt;</code>。</li>
+<li><strong>資料型態:</strong> <code>char</code> (1 byte), <code>int</code> (4 bytes), <code>long long</code> (8 bytes) 等。</li>
+<li><strong>有號數:</strong> 使用二補數 (Two’s Complement) 表示，最高位元為符號位。</li>
+<li><strong>位元運算:</strong> <code>&amp;</code> (AND), <code>|</code> (OR), <code>^</code> (XOR), <code>~</code> (NOT), <code>&lt;&lt;</code> (左移), <code>&gt;&gt;</code> (右移)。</li>
+<li><strong>指標:</strong> <code>&amp;</code> (取址)，<code>*</code> (解引用)。陣列的名稱本質上就是指向第一個元素的指標。</li>
+</ul>
+</li>
+</ul>
+<h4 id="x86-指令集"><a href="#x86-指令集" class="headerlink" title="x86 指令集"></a><strong>x86 指令集</strong></h4><ul>
+<li><strong>CPU 運作:</strong> 遵循「取指令 (Fetch) -&gt; 解碼 (Decode) -&gt; 執行 (Execute) -&gt; 寫回 (Write Back)」的指令週期。</li>
+<li><strong>暫存器 (Registers):</strong> CPU 內部的高速儲存空間。<ul>
+<li><strong>通用暫存器:</strong> <code>RAX</code> (累加器&#x2F;回傳值), <code>RBX</code> (基底指標), <code>RCX</code> (計數器), <code>RDX</code> (資料)。</li>
+<li><strong>指標暫存器:</strong> <code>RSP</code> (堆疊頂端指標), <code>RBP</code> (堆疊基底指標), <code>RIP</code> (指令指標)。</li>
+<li><strong>索引暫存器:</strong> <code>RSI</code> (來源索引), <code>RDI</code> (目標索引)。</li>
+<li><strong>EFLAGS:</strong> 狀態暫存器，包含 <code>ZF</code> (零旗標), <code>SF</code> (符號旗標), <code>CF</code> (進位旗標), <code>OF</code> (溢位旗標) 等，用於條件判斷。</li>
+</ul>
+</li>
+<li><strong>常用指令:</strong><ul>
+<li><strong>資料傳輸:</strong> <code>mov</code> (移動), <code>push</code> (推入堆疊), <code>pop</code> (彈出堆疊), <code>lea</code> (載入有效位址)。</li>
+<li><strong>算術運算:</strong> <code>add</code> (加), <code>sub</code> (減), <code>mul</code> (無號乘), <code>imul</code> (有號乘), <code>div</code> (無號除)。</li>
+<li><strong>邏輯與比較:</strong> <code>and</code>, <code>or</code>, <code>xor</code>, <code>cmp</code> (比較), <code>test</code> (測試)。</li>
+<li><strong>流程控制:</strong> <code>jmp</code> (無條件跳轉), <code>je/jz</code> (相等&#x2F;為零則跳轉), <code>jne/jnz</code> (不相等&#x2F;不為零則跳轉), <code>call</code> (呼叫函式), <code>ret</code> (返回)。</li>
+</ul>
+</li>
+<li><strong>x86 vs x86-64:</strong><ul>
+<li>主要差別在於暫存器大小（32-bit vs 64-bit）與可定址的記憶體空間。</li>
+<li>x86-64 作業系統可向下相容執行 x86 程式。</li>
+<li>系統呼叫方式不同 (<code>int 0x80</code> vs <code>syscall</code>)。</li>
+</ul>
+</li>
+</ul>
+<h3 id="第四部分：函式呼叫與資料結構"><a href="#第四部分：函式呼叫與資料結構" class="headerlink" title="第四部分：函式呼叫與資料結構"></a><strong>第四部分：函式呼叫與資料結構</strong></h3><h4 id="呼叫約定-Calling-Convention"><a href="#呼叫約定-Calling-Convention" class="headerlink" title="呼叫約定 (Calling Convention)"></a><strong>呼叫約定 (Calling Convention)</strong></h4><ul>
+<li><strong>定義:</strong> 一組規則，規範函式如何傳遞參數、回傳值以及誰負責清理堆疊。</li>
+<li><strong>重要性:</strong> 影響應用程式二進位介面 (ABI)，若呼叫者與被呼叫者使用不同約定會導致程式崩潰。</li>
+<li><strong>常見範例:</strong><ul>
+<li><strong>x86-64 System V (Linux&#x2F;macOS):</strong> 前六個整數&#x2F;指標參數依序使用 <code>RDI</code>, <code>RSI</code>, <code>RDX</code>, <code>RCX</code>, <code>R8</code>, <code>R9</code> 暫存器傳遞。</li>
+<li><strong>Microsoft x64 (Windows):</strong> 使用 <code>RCX</code>, <code>RDX</code>, <code>R8</code>, <code>R9</code>。</li>
+</ul>
+</li>
+</ul>
+<h4 id="Stack-Frame"><a href="#Stack-Frame" class="headerlink" title="Stack Frame"></a><strong>Stack Frame</strong></h4><ul>
+<li><strong>概念:</strong> 每次函式呼叫時，在堆疊 (Stack) 上建立的一個獨立區域，用於儲存區域變數、函式參數、返回位址等資訊。</li>
+<li><strong>函式前序 (Function Prologue):</strong><ol>
+<li><code>push rbp</code>: 將舊的 <code>rbp</code> (呼叫者函式的堆疊基底) 推入堆疊保存。</li>
+<li><code>mov rbp, rsp</code>: 將 <code>rbp</code> 指向目前的 <code>rsp</code>，建立新函式的堆疊基底。</li>
+<li><code>sub rsp, N</code>: 將 <code>rsp</code> 向下移動，為區域變數預留空間。</li>
+</ol>
+<p>  * </p>
+</li>
+<li><strong>函式結語 (Function Epilogue):</strong><ol>
+<li><code>leave</code>: 相當於 <code>mov rsp, rbp</code> (釋放區域變數空間) 和 <code>pop rbp</code> (恢復舊的 <code>rbp</code>)。</li>
+<li><code>ret</code>: 從堆疊彈出返回位址到 <code>RIP</code>，回到呼叫者函式繼續執行。</li>
+</ol>
+<ul>
+<li></li>
+</ul>
+</li>
+</ul>
+<h4 id="Struct"><a href="#Struct" class="headerlink" title="Struct"></a><strong>Struct</strong></h4><ul>
+<li>在組合語言中，存取 <code>struct</code> 成員是透過計算相對於該 <code>struct</code> 實例基底位址的偏移量 (offset) 來完成的。</li>
+<li>編譯器可能會為了效能，在 <code>struct</code> 成員之間插入 padding，以確保資料對齊 (alignment)，避免因 <code>cache line split</code> 導致的存取延遲。</li>
+</ul>
+<h4 id="Endianness"><a href="#Endianness" class="headerlink" title="Endianness"></a><strong>Endianness</strong></h4><ul>
+<li><strong>定義:</strong> 多位元組資料在記憶體中的儲存順序。</li>
+<li><strong>Little-Endian (小端序):</strong> 低位元組 (least significant byte) 存在低位址。這是 x86 和 ARM 架構的常見模式。<ul>
+<li>例如：<code>0x12345678</code> 在記憶體中存為 <code>78 56 34 12</code>。</li>
+</ul>
+</li>
+<li><strong>Big-Endian (大端序):</strong> 高位元組 (most significant byte) 存在低位址。常見於網路協議。</li>
+</ul>
+<h3 id="第五部分：進階主題與工具"><a href="#第五部分：進階主題與工具" class="headerlink" title="第五部分：進階主題與工具"></a><strong>第五部分：進階主題與工具</strong></h3><h4 id="逆向工具-Reverse-Engineering-Tools"><a href="#逆向工具-Reverse-Engineering-Tools" class="headerlink" title="逆向工具 (Reverse Engineering Tools)"></a><strong>逆向工具 (Reverse Engineering Tools)</strong></h4><ul>
+<li><strong>靜態分析工具:</strong><ul>
+<li><strong>IDA Pro:</strong> 功能強大的反組譯器與反編譯器，支援多種 CPU 架構與腳本擴充。常用快捷鍵：<code>F5</code> (反編譯), <code>x</code> (交叉引用), <code>g</code> (跳轉), <code>n</code> (重新命名)。</li>
+<li><strong>Ghidra:</strong> 由 NSA 開源的免費工具。</li>
+<li><strong>其他:</strong> Radare2, Binary Ninja。</li>
+</ul>
+</li>
+<li><strong>動態分析工具 (Debugger):</strong><ul>
+<li><strong>GDB:</strong> GNU Debugger，常用於 Linux 環境，可搭配 GEF、Pwndbg 等插件強化功能。</li>
+<li><strong>常用指令:</strong> <code>b</code> (設斷點), <code>r</code> (執行), <code>c</code> (繼續), <code>si</code> (單步進入), <code>ni</code> (單步越過), <code>x/</code> (檢視記憶體)。</li>
+</ul>
+</li>
+<li><strong>輔助工具:</strong><ul>
+<li><code>strings</code>: 掃描檔案中的可列印字串。</li>
+<li><code>objdump</code>: 顯示二進位檔案的資訊，如反組譯碼。</li>
+</ul>
+</li>
+</ul>
+<h4 id="程式進入點-Entry-Point"><a href="#程式進入點-Entry-Point" class="headerlink" title="程式進入點 (Entry Point)"></a><strong>程式進入點 (Entry Point)</strong></h4><ul>
+<li>C 語言程式的真正執行起點並非 <code>main()</code> 函式。</li>
+<li>在 Linux 中，起點通常是 C 執行時環境 (CRT) 的 <code>_start</code> 函式。</li>
+<li><code>_start</code> 會呼叫 <code>__libc_start_main()</code>，此函式負責初始化環境 (如執行 <code>.init_array</code> 中的函式)，然後才呼叫開發者寫的 <code>main()</code>。</li>
+</ul>
+<h4 id="編譯器優化-Compiler-Optimization"><a href="#編譯器優化-Compiler-Optimization" class="headerlink" title="編譯器優化 (Compiler Optimization)"></a><strong>編譯器優化 (Compiler Optimization)</strong></h4><ul>
+<li>編譯器為了提升程式執行效率，會對程式碼進行優化，可能導致產生的組合語言與原始碼的直接對應關係變得複雜。</li>
+<li><strong>強度削弱 (Strength Reduction):</strong> 是一個常見的優化技巧，例如當除數為常數時，會將較慢的 <code>div</code> 指令替換為較快的乘法與位移運算。</li>
+</ul>
+<h4 id="Strip"><a href="#Strip" class="headerlink" title="Strip"></a><strong>Strip</strong></h4><ul>
+<li><code>strip</code> 是一個 Unix-like 指令，用於移除執行檔中的符號表 (symbol table) 與除錯資訊。</li>
+<li>這樣做可以縮小檔案大小，但同時也會移除函式和變數的名稱，大幅增加逆向工程的難度。<!-- # 逆向工程</li>
+</ul>
+<h2 id="什麼是逆向工程"><a href="#什麼是逆向工程" class="headerlink" title="什麼是逆向工程"></a>什麼是逆向工程</h2><p><strong>定義</strong></p>
+<ul>
+<li>理解某個東西內部的原理<br><strong>例子</strong></li>
+<li>研究惡意程式</li>
+<li>破解軟體的授權系統</li>
+<li>分析硬體設備</li>
+<li>解構遊戲邏輯，開發插件或是修改數據</li>
+</ul>
+<p><strong>用途</strong></p>
+<ul>
+<li>安全性</li>
+<li>學習研究</li>
+<li>改建跟創新</li>
+<li>修復<br>高階程式碼 -&gt;(編譯) 組合語言 -&gt;(組譯) 機器碼</li>
+</ul>
+<h2 id="逆性工程場景"><a href="#逆性工程場景" class="headerlink" title="逆性工程場景"></a>逆性工程場景</h2><ul>
+<li>靜態分析</li>
+<li>動態分析</li>
+<li>分析逆向場景<ul>
+<li>作業系統</li>
+<li>程式語言</li>
+<li>CPU 指令集</li>
+</ul>
+</li>
+</ul>
+<h2 id="執行檔分析"><a href="#執行檔分析" class="headerlink" title="執行檔分析"></a>執行檔分析</h2><ul>
+<li>ELF(常見於linux-Unix-like，無固定副檔名)</li>
+<li>PE(Portable Executable)<ul>
+<li>常見於:windows</li>
+<li>副檔名： .exe、.dll、.sys</li>
+</ul>
+</li>
+<li>Mach-O(Mach Object)<ul>
+<li>常見於：masOS、iOS，無固定副檔名</li>
+</ul>
+</li>
+</ul>
+<p><strong>xxd 執行檔 | head</strong><br><strong>readelf -a hello</strong></p>
+<h3 id="virtual-memory"><a href="#virtual-memory" class="headerlink" title="virtual memory"></a>virtual memory</h3><p>城市運行時的記憶體位置，不一定是ELF檔案內的偏移。作業系統使用虛擬機異體機制來將虛擬位置應設到實體記憶體</p>
+<h2 id="Linux-C-開發基苦"><a href="#Linux-C-開發基苦" class="headerlink" title="Linux &amp; C 開發基苦"></a>Linux &amp; C 開發基苦</h2><h3 id="有-無號數-二補數"><a href="#有-無號數-二補數" class="headerlink" title="有&#x2F;無號數 &amp; 二補數"></a>有&#x2F;無號數 &amp; 二補數</h3><p><strong>二補數</strong><br>用來表示有號整數的方式，讓加減法直接使用相同的硬體運算邏輯</p>
+<h2 id="x86指令集"><a href="#x86指令集" class="headerlink" title="x86指令集"></a>x86指令集</h2><h3 id="CPU："><a href="#CPU：" class="headerlink" title="CPU："></a>CPU：</h3><p><img src="/image.png" alt="alt text"></p>
+<h3 id="RAM"><a href="#RAM" class="headerlink" title="RAM"></a>RAM</h3><ul>
+<li>SRAM：CPU 快取</li>
+<li>RAM：一般的RAM</li>
+<li>VRAM：顯卡的RAM</li>
+</ul>
+<h3 id="通用暫存器"><a href="#通用暫存器" class="headerlink" title="通用暫存器"></a>通用暫存器</h3><ul>
+<li>RAX (累加器)：存放運算結果</li>
+<li>RBX (基底暫存器)：存放指標惠基底位址</li>
+<li>RCX (計數器)：常用於迴圈技術</li>
+<li>RDX (資料暫存器)：存放資料，常與RAX配合</li>
+</ul>
+<h3 id="指位器"><a href="#指位器" class="headerlink" title="指位器"></a>指位器</h3><ul>
+<li>RSP (堆疊指位器)：指向當前堆疊的頂端</li>
+<li>RBP (基底指位器)：指向當前Stack Frame的底部</li>
+<li>RIP (程式指位器)：指嚇嚇一個將要執行的指令位置</li>
+</ul>
+<h3 id="索引暫存器"><a href="#索引暫存器" class="headerlink" title="索引暫存器"></a>索引暫存器</h3><ul>
+<li>RSI（來源索引，Source Index）：存放資料來源位址</li>
+<li>RDI（目標索引，Destination Index）：存放資料目標位址</li>
+</ul>
+<h3 id="暫-–"><a href="#暫-–" class="headerlink" title="暫 –&gt;"></a>暫 –&gt;</h3>
+      </section>
+
+      
+      
+        <nav class="article-nav">
+          
+            <div class="article-nav-item layout-padding">
+  <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
+    
+    <div class="card-text">
+      
+        <a href="/2025/07/07/ipas-note/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">iPAS 讀書會筆記</h2>
+        </a>
+      
+      <div class="card-text--row">Newer</div>
+    </div>
+  </article>
+</div>
+          
+          
+            <div class="article-nav-item layout-padding">
+  <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
+    
+    <div class="card-text">
+      
+        <a href="/2025/01/08/Web-Security/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">Web Security</h2>
+        </a>
+      
+      <div class="card-text--row">Older</div>
+    </div>
+  </article>
+</div>
+          
+        </nav>
+      
+
+      <section class="page-message-container layout-padding">
+        
+
+
+  <h3 class="widget-title">留言</h3>
+  
+  
+
+  
+  
+
+
+      </section>
+    </div>
+    <div class="widget-info">
+      <section class="widget-author widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-body">
+    
+      <img src="https://public-imgbed.pages.dev/file/1739948460764_image.png" class="soft-size--round soft-style--box" alt="Luc Chang">
+    
+    
+      <h2>Luc Chang</h2>
+    
+    
+      <p>菜機工程師努力便強大</p>
+    
+
+    <div class="count-box">
+      <div class="count-box--item">
+        <svg class="icon icon-article" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M240.51564747 647.74217627h196.07203239c16.59071043 0 30.16492806-13.57421762 30.16492805-30.16492806V165.10332731c0-33.18142087-30.16492806-60.32985613-60.32985612-60.32985611H245.04038668C225.43318342 104.7734712 210.35071939 119.85593522 210.35071939 139.46313845V617.57724821c0 16.59071043 13.57421762 30.16492806 30.16492808 30.16492806z m663.62841731-452.47392089v482.63884894c0 33.18142087-27.14843525 60.32985613-60.32985612 60.32985613H180.18579134c-33.18142087 0-60.32985613-27.14843525-60.32985612-60.32985613V195.26825538c-49.77213131 0-90.49478418 40.72265287-90.49478417 90.49478417v452.4739209c0 49.77213131 40.72265287 90.49478418 90.49478417 90.49478417h286.56681657c16.59071043 0 30.16492806 13.57421762 30.16492807 30.16492807s13.57421762 30.16492806 30.16492805 30.16492806h90.49478418c16.59071043 0 30.16492806-13.57421762 30.16492805-30.16492806s13.57421762-30.16492806 30.16492807-30.16492807h286.56681657c49.77213131 0 90.49478418-40.72265287 90.49478417-90.49478417V285.76303955c0-49.77213131-40.72265287-90.49478418-90.49478417-90.49478417zM587.41232014 647.74217627h191.54729318c19.60720323 0 34.68966726-15.08246403 34.68966729-34.68966727V134.93839925c0-16.59071043-13.57421762-30.16492806-30.16492808-30.16492805H617.57724821c-30.16492806 0-60.32985613 27.14843525-60.32985612 60.32985611v452.4739209c0 16.59071043 13.57421762 30.16492806 30.16492805 30.16492806z" fill="currentColor"></path>
+</svg>
+        <span>10</span>
+      </div>
+      <div class="count-box--item">
+        <svg class="icon icon-categories" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M900.3614811 257.09082106h-339.81629553l-67.96326003-101.9448889c-19.41807444-29.12711113-48.54518557-43.69066667-82.52681443-43.69066667H123.6385189c-53.39970333 0-97.09036999 43.69066667-97.09037113 97.09036999v582.54222222c0 53.39970333 43.69066667 97.09036999 97.09037113 97.09037002h776.7229622c53.39970333 0 97.09036999-43.69066667 97.09037113-97.09037002V354.18119104c0-53.39970333-43.69066667-97.09036999-97.09037113-97.09036998z m-97.09036999 242.72592554H220.72888889c-24.27259221 0-48.54518557-24.27259221-48.54518556-48.54518556s24.27259221-48.54518557 48.54518556-48.54518444h582.54222222c24.27259221 0 48.54518557 24.27259221 48.54518556 48.54518444s-24.27259221 48.54518557-48.54518556 48.54518556z" fill="currentColor"></path>
+</svg>
+        0
+      </div>
+      <div class="count-box--item">
+        <svg class="icon icon-tags" viewBox="0 0 1098 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M283.42180005 272q0-28.38857157-20.09142843-48.48000001t-48.47999998-20.09142842-48.48000002 20.09142842-20.09142846 48.48000001 20.09142846 48.48 48.48000002 20.09142843 48.47999998-20.09142843 20.09142843-48.48zM855.0332285 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.03999997 263.58857157q-20.9142853 19.81714313-48.75428534 19.81714312-28.38857157 0-48.20571468-19.81714312l-383.04-383.58857157q-20.36571468-19.81714313-34.55999999-54.10285688t-14.19428534-62.6742853l0-222.85714313q0-27.84000002 20.36571469-48.20571469t48.2057147-20.36571466l222.85714313 0q28.38857157 0 62.6742853 14.19428529t54.65142842 34.55999999l383.04000001 382.49142843q19.81714313 20.9142853 19.81714314 48.75428532zM1060.74751475 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.04 263.58857157q-20.9142853 19.81714313-48.75428531 19.81714312-19.26857155 0-31.61142843-7.47428531t-28.38857159-24.13714314l251.79428534-251.7942853q19.81714313-19.81714313 19.81714308-48.20571469 0-27.84000002-19.81714308-48.75428531l-383.04000001-382.49142845q-20.36571468-20.36571468-54.65142842-34.55999999t-62.67428532-14.19428534l120 0q28.38857157 0 62.67428532 14.19428534t54.65142842 34.55999999l383.03999998 382.49142845q19.81714313 20.9142853 19.81714314 48.75428531z" fill="currentColor"></path>
+</svg>
+        9
+      </div>
+    </div>
+  </div>
+</section>
+
+      
+
+      
+
+      <section class="widget-categories widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-title">
+    <svg class="icon icon-categories" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M900.3614811 257.09082106h-339.81629553l-67.96326003-101.9448889c-19.41807444-29.12711113-48.54518557-43.69066667-82.52681443-43.69066667H123.6385189c-53.39970333 0-97.09036999 43.69066667-97.09037113 97.09036999v582.54222222c0 53.39970333 43.69066667 97.09036999 97.09037113 97.09037002h776.7229622c53.39970333 0 97.09036999-43.69066667 97.09037113-97.09037002V354.18119104c0-53.39970333-43.69066667-97.09036999-97.09037113-97.09036998z m-97.09036999 242.72592554H220.72888889c-24.27259221 0-48.54518557-24.27259221-48.54518556-48.54518556s24.27259221-48.54518557 48.54518556-48.54518444h582.54222222c24.27259221 0 48.54518557 24.27259221 48.54518556 48.54518444s-24.27259221 48.54518557-48.54518556 48.54518556z" fill="currentColor"></path>
+</svg>
+      <span>CATEGORIES</span>
+  </div>
+  <div class="widget-body">
+    <ul class="categories-list">
+      
+    </ul>
+  </div>
+</section>
+
+      <section class="widget-tags widget-item  layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-title">
+    <svg class="icon icon-tags" viewBox="0 0 1098 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M283.42180005 272q0-28.38857157-20.09142843-48.48000001t-48.47999998-20.09142842-48.48000002 20.09142842-20.09142846 48.48000001 20.09142846 48.48 48.48000002 20.09142843 48.47999998-20.09142843 20.09142843-48.48zM855.0332285 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.03999997 263.58857157q-20.9142853 19.81714313-48.75428534 19.81714312-28.38857157 0-48.20571468-19.81714312l-383.04-383.58857157q-20.36571468-19.81714313-34.55999999-54.10285688t-14.19428534-62.6742853l0-222.85714313q0-27.84000002 20.36571469-48.20571469t48.2057147-20.36571466l222.85714313 0q28.38857157 0 62.6742853 14.19428529t54.65142842 34.55999999l383.04000001 382.49142843q19.81714313 20.9142853 19.81714314 48.75428532zM1060.74751475 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.04 263.58857157q-20.9142853 19.81714313-48.75428531 19.81714312-19.26857155 0-31.61142843-7.47428531t-28.38857159-24.13714314l251.79428534-251.7942853q19.81714313-19.81714313 19.81714308-48.20571469 0-27.84000002-19.81714308-48.75428531l-383.04000001-382.49142845q-20.36571468-20.36571468-54.65142842-34.55999999t-62.67428532-14.19428534l120 0q28.38857157 0 62.67428532 14.19428534t54.65142842 34.55999999l383.03999998 382.49142845q19.81714313 20.9142853 19.81714314 48.75428531z" fill="currentColor"></path>
+</svg>
+    <span>TAGS</span>
+  </div>
+  <div class="widget-body">
+    <div class="tags-cloud">
+      <a href="/tags/HITCON-2025-%E8%B3%87%E8%A8%8A%E5%AE%89%E5%85%A8/" style="font-size: 10px;" class="tags-cloud-0">HITCON 2025, 資訊安全</a> <a href="/tags/Linux/" style="font-size: 10px;" class="tags-cloud-0">Linux</a> <a href="/tags/cryptography-%E8%B3%87%E8%A8%8A%E5%AE%89%E5%85%A8/" style="font-size: 10px;" class="tags-cloud-0">cryptography, 資訊安全</a> <a href="/tags/cyber-security-reverse/" style="font-size: 10px;" class="tags-cloud-0">cyber-security, reverse</a> <a href="/tags/google-hacking-%E8%B3%87%E8%A8%8A%E5%AE%89%E5%85%A8/" style="font-size: 10px;" class="tags-cloud-0">google-hacking, 資訊安全</a> <a href="/tags/pwntools/" style="font-size: 10px;" class="tags-cloud-0">pwntools</a> <a href="/tags/web/" style="font-size: 10px;" class="tags-cloud-0">web</a> <a href="/tags/web-security-intro-blog/" style="font-size: 10px;" class="tags-cloud-0">web-security, intro-blog</a> <a href="/tags/%E5%AF%86%E7%A2%BC%E5%AD%B8/" style="font-size: 10px;" class="tags-cloud-0">密碼學</a>
+    </div>
+  </div>
+</section>
+    </div>
+  </article>
+</div>
+
+    <!-- footer container -->
+<footer id="footer" class="footer">
+  <div class="footer-container">
+    
+    <div class="social-icons">
+      
+        
+          <a href="https://www.instagram.com/happyluc1114/" class="soft-size--primary soft-style--box" target="_blank" rel="noopener noreferrer">
+            <svg class="icon icon-ins" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M512 0C372.906667 0 355.541333 0.64 300.928 3.072 246.4 5.632 209.28 14.208 176.64 26.88c-33.664 13.056-62.250667 30.592-90.709333 59.050667S39.893333 142.933333 26.88 176.64C14.208 209.28 5.589333 246.4 3.072 300.928 0.512 355.541333 0 372.906667 0 512s0.64 156.458667 3.072 211.072c2.56 54.485333 11.136 91.648 23.808 124.288a251.093333 251.093333 0 0 0 59.050667 90.709333A250.368 250.368 0 0 0 176.64 997.12c32.682667 12.629333 69.802667 21.290667 124.288 23.808C355.541333 1023.488 372.906667 1024 512 1024s156.458667-0.64 211.072-3.072c54.485333-2.56 91.648-11.178667 124.288-23.808a251.648 251.648 0 0 0 90.709333-59.050667 250.026667 250.026667 0 0 0 59.050667-90.709333c12.629333-32.64 21.290667-69.802667 23.808-124.288 2.56-54.613333 3.072-71.978667 3.072-211.072s-0.64-156.458667-3.072-211.072c-2.56-54.485333-11.178667-91.690667-23.808-124.288a251.306667 251.306667 0 0 0-59.050667-90.709333A249.472 249.472 0 0 0 847.36 26.88c-32.64-12.672-69.802667-21.290667-124.288-23.808C668.458667 0.512 651.093333 0 512 0z m0 92.16c136.661333 0 152.96 0.682667 206.933333 3.029333 49.92 2.346667 77.013333 10.624 95.018667 17.706667 23.978667 9.258667 40.96 20.352 58.965333 38.229333 17.877333 17.92 28.970667 34.944 38.229334 58.922667 6.997333 18.005333 15.36 45.098667 17.621333 95.018667 2.432 54.016 2.986667 70.229333 2.986667 206.933333s-0.64 152.96-3.157334 206.933333c-2.602667 49.92-10.922667 77.013333-17.962666 95.018667a162.56 162.56 0 0 1-38.357334 58.965333 159.744 159.744 0 0 1-58.88 38.229334c-17.92 6.997333-45.44 15.36-95.36 17.621333-54.357333 2.432-70.357333 2.986667-207.317333 2.986667-137.002667 0-153.002667-0.64-207.317333-3.157334-49.962667-2.602667-77.482667-10.922667-95.402667-17.962666a158.549333 158.549333 0 0 1-58.837333-38.357334 155.477333 155.477333 0 0 1-38.4-58.88c-7.04-17.92-15.317333-45.44-17.92-95.36-1.92-53.76-2.602667-70.357333-2.602667-206.677333 0-136.362667 0.682667-153.002667 2.602667-207.402667 2.602667-49.92 10.88-77.397333 17.92-95.317333 8.96-24.32 20.437333-40.96 38.4-58.922667 17.877333-17.877333 34.56-29.397333 58.837333-38.314666 17.92-7.082667 44.842667-15.402667 94.762667-17.962667 54.4-1.92 70.4-2.56 207.317333-2.56l1.92 1.28z m0 156.928a262.912 262.912 0 1 0 0 525.824 262.912 262.912 0 1 0 0-525.824zM512 682.666667c-94.293333 0-170.666667-76.373333-170.666667-170.666667s76.373333-170.666667 170.666667-170.666667 170.666667 76.373333 170.666667 170.666667-76.373333 170.666667-170.666667 170.666667z m334.762667-443.946667a61.482667 61.482667 0 0 1-122.88 0 61.44 61.44 0 0 1 122.88 0z"></path>
+</svg>
+
+          </a>
+        
+      
+        
+      
+        
+      
+        
+          <a href="https://github.com/LucChang?tab=repositories" class="soft-size--primary soft-style--box" target="_blank" rel="noopener noreferrer">
+            <svg class="icon icon-github" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M64.6 512c0 195.6 125.4 361.9 300.1 422.9 23.5 5.9 19.9-10.8 19.9-22.2v-77.6c-135.8 15.9-141.3-74-150.5-89-18.5-31.5-61.9-39.5-49-54.5 31-15.9 62.5 4 98.9 58 26.4 39.1 77.9 32.5 104.1 26 5.7-23.5 17.9-44.5 34.7-60.9-140.7-25.2-199.4-111.1-199.4-213.3 0-49.5 16.4-95.1 48.4-131.8-20.4-60.6 1.9-112.4 4.9-120.1 58.2-5.2 118.5 41.6 123.3 45.3 33.1-8.9 70.8-13.7 112.9-13.7 42.4 0 80.3 4.9 113.5 13.9 11.3-8.6 67.3-48.8 121.4-43.9 2.9 7.7 24.7 58.3 5.5 118.1 32.5 36.8 49 82.8 49 132.4 0 102.3-59 188.3-200.2 213.2 23.5 23.3 38.1 55.5 38.1 91.1v112.7c0.8 9 0 17.9 15.1 17.9C832.7 877 960.4 709.4 960.4 512.1c0-247.5-200.6-447.9-447.9-447.9C265 64.1 64.6 264.5 64.6 512z"></path>
+</svg>
+          </a>
+        
+      
+        
+          <a href="https://x.com/longmayi248272" class="soft-size--primary soft-style--box" target="_blank" rel="noopener noreferrer">
+            <svg class="icon icon-twitter" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M962.285714 233.142857q-38.285714 56-92.571429 95.428571 0.571429 8 0.571429 24 0 74.285714-21.714286 148.285714t-66 142-105.428571 120.285714-147.428571 83.428571-184.571429 31.142857q-154.857143 0-283.428571-82.857143 20 2.285714 44.571429 2.285714 128.571429 0 229.142857-78.857143-60-1.142857-107.428571-36.857143t-65.142857-91.142857q18.857143 2.857143 34.857143 2.857143 24.571429 0 48.571429-6.285714-64-13.142857-106-63.714286t-42-117.428571l0-2.285714q38.857143 21.714286 83.428571 23.428571-37.714286-25.142857-60-65.714286t-22.285714-88q0-50.285714 25.142857-93.142857 69.142857 85.142857 168.285714 136.285714t212.285714 56.857143q-4.571429-21.714286-4.571429-42.285714 0-76.571429 54-130.571429t130.571429-54q80 0 134.857143 58.285714 62.285714-12 117.142857-44.571429-21.142857 65.714286-81.142857 101.714286 53.142857-5.714286 106.285714-28.571429z"></path>
+</svg>
+          </a>
+        
+      
+    </div>
+     
+    <p>&copy; 2025 <a href="/" target="_blank">LucChang</a></p>
+
+    
+
+    <p>Powered by <a href="https://hexo.io" target="_blank" rel="noopener noreferrer">Hexo</a> Theme - <a href="https://github.com/miiiku/flex-block" target="_blank" rel="noopener noreferrer author">flex-block</a></p>
+
+    <p>
+      <a href="javascript:;" id="theme-light">🌞 浅色</a>
+      <a href="javascript:;" id="theme-dark">🌛 深色</a>
+      <a href="javascript:;" id="theme-auto">🤖️ 自动</a>
+    </p>
+  </div>
+</footer>
+  </div>
+
+  <div class="back-to-top-fixed soft-size--round soft-style--box">
+    <svg class="icon icon-back-to-top" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+      <path d="M725.333333 426.666667c-12.8 0-21.333333-4.266667-29.866667-12.8l-213.333333-213.333333c-17.066667-17.066667-17.066667-42.666667 0-59.733333s42.666667-17.066667 59.733333 0l213.333333 213.333333c17.066667 17.066667 17.066667 42.666667 0 59.733333C746.666667 422.4 738.133333 426.666667 725.333333 426.666667z"></path>
+      <path d="M298.666667 426.666667c-12.8 0-21.333333-4.266667-29.866667-12.8-17.066667-17.066667-17.066667-42.666667 0-59.733333l213.333333-213.333333c17.066667-17.066667 42.666667-17.066667 59.733333 0s17.066667 42.666667 0 59.733333l-213.333333 213.333333C320 422.4 311.466667 426.666667 298.666667 426.666667z"></path>
+      <path d="M512 896c-25.6 0-42.666667-17.066667-42.666667-42.666667L469.333333 170.666667c0-25.6 17.066667-42.666667 42.666667-42.666667s42.666667 17.066667 42.666667 42.666667l0 682.666667C554.666667 878.933333 537.6 896 512 896z"></path>
+    </svg>
+  </div>
+
+  
+  
+
+
+
+
+
+
+<!-- copy button  -->
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
+
+<!-- https://clipboardjs.com/ -->
+
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+  
+  <!-- 尾部用户自定义相关内容 -->
+</body>
+</html>

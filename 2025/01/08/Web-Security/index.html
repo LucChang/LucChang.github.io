@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color" content="#3367D6"/>
+  <link rel="apple-touch-icon" href="/icons-192.png">
+  <link rel="manifest" href="/manifest.json">
+  
+  <meta name="generator" content="Hexo 7.3.0">
+
+  
+
+  
+    <meta name="keywords" content="資訊安全,網站安全,網站攻擊,網站防護,網站漏洞,網站攻擊工具,網站防護工具,網站漏洞工具">
+  
+
+  
+    <meta name="author" content="LucChang">
+  
+
+  
+
+  
+
+  <title>Web Security | 筆記收藏匣</title>
+
+  
+
+  
+    <link rel="shortcut icon" href="/goldball_face.ico">
+  
+
+  
+
+  
+
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body>
+  <div class="root-container">
+    
+<!-- header container -->
+<header class="header-container post">
+  
+    <div class="post-image" style="background-image: url(https://0af5db21.public-imgbed.pages.dev/file/1762521670450_6F1A5525-A7C0-4701-BE20-CD8F3F9868DB.jpg)"></div>
+  
+
+  <!-- navbar -->
+<nav class="navbar">
+  <div class="navbar-content">
+    <!-- logo -->
+    <div class="navbar-logo">
+      <a href="/">
+        
+          LucChang Blog
+        
+      </a>
+    </div>
+    <!-- link -->
+    <div class="navbar-link">
+      <div class="navbar-btn">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <ul class="navbar-list">
+        
+          <li class="navbar-list-item"><a href="/">首頁</a></li>
+        
+          <li class="navbar-list-item"><a href="/archives">歸檔</a></li>
+        
+          <li class="navbar-list-item"><a href="/links">朋友</a></li>
+        
+          <li class="navbar-list-item"><a href="/about">關於我</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+    <div class="header-content">
+      <div class="post-text layout-block">
+        <div class="layout-margin">
+          <h1 class="title-wrap">Web Security</h1>
+          <h2 class="title-sub-wrap">
+            <strong>LucChang</strong>
+            <span>发布于</span>
+            <time  class="article-date" datetime="2025-01-08T01:15:34.000Z" itemprop="datePublished">2025-01-08</time>
+          </h2>
+          
+            <h2 class="last-time">
+              <span>最后更新于</span>
+              <time  class="article-updated" datetime="2025-11-04T15:42:23.720Z" itemprop="dateUpdated">2025-11-04</time>
+            </h2>
+          
+          
+          <ul class="wrap-list dark">
+  
+</ul>
+          <ul class="wrap-list dark">
+  
+    <li><a href="/tags/web/">🏷️ web</a></li>
+  
+</ul>
+        </div>
+      </div>
+    </div>
+  
+
+  
+  
+  
+</header>
+
+    <!-- 文章 -->
+
+<!-- 文章内容 -->
+<div class="body-container">
+  <article class="content-container layout-block post-container">
+    <div class="article-info">
+      
+      
+      
+      
+      <section class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box">
+        <h1 id="Web-Security"><a href="#Web-Security" class="headerlink" title="Web Security"></a>Web Security</h1><h3 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h3><p><strong>HTTP status code</strong></p>
+<ul>
+<li>2xx 一切正常</li>
+<li>3xx 重新導向</li>
+<li>4xx 客戶端錯誤</li>
+<li>5xx 伺服器錯誤</li>
+</ul>
+<h3 id="Web-Attack"><a href="#Web-Attack" class="headerlink" title="Web Attack"></a>Web Attack</h3><ul>
+<li>Frontend 瀏覽器<ul>
+<li>XSS</li>
+<li>CSS injection</li>
+<li>prototype pollution</li>
+<li>Dom Clobbering</li>
+</ul>
+</li>
+<li>Backend<ul>
+<li>LFI</li>
+<li>Command injection</li>
+<li>SQL injection</li>
+<li>Serializtion</li>
+<li>SSRF</li>
+<li>SSTI</li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/w181496/Web-CTF-Cheatsheet">https://github.com/w181496/Web-CTF-Cheatsheet</a> (攻擊手法)</li>
+</ul>
+<h3 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h3><p><strong>用途</strong><br>紀錄使用者資訊在瀏覽器內，紀錄不同網站造訪的cookie，用途是可以記錄使用者資訊，下次造訪會記錄你之前造訪的狀態，透過Name和value的參數紀錄<br><strong>Session</strong><br>在後端會有一個亂碼叫做session id，對應到使用者的Data，這些使用者Data會被儲存到server database，前端的cookie會設置session id，發送http 請求時後端會去對照cookie的session id，從Database取得使用者資訊，這種機制讓駭客無法去冒充他人身分</p>
+<h3 id="Recon"><a href="#Recon" class="headerlink" title="Recon"></a>Recon</h3><p><strong>檢查四網站伺服器類型</strong></p>
+<ul>
+<li>從 Error message 觀察後端與版本<ul>
+<li><a target="_blank" rel="noopener" href="https://0xdf.gitlab.io/cheatsheets/404">https://0xdf.gitlab.io/cheatsheets/404</a></li>
+</ul>
+</li>
+<li>webanalyzer <ul>
+<li><a target="_blank" rel="noopener" href="https://chromewebstore.google.com/detail/wappalyzer-technology-pro/gppongmhjkpfnbhagpmjfkannfbllamg">https://chromewebstore.google.com/detail/wappalyzer-technology-pro/gppongmhjkpfnbhagpmjfkannfbllamg</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="INFO-leak"><a href="#INFO-leak" class="headerlink" title="INFO leak"></a>INFO leak</h3><p><strong>robots.txt</strong><br>告訴爬蟲哪些路徑能爬，哪些不行<br>有可能會洩漏敏感路徑！</p>
+<ul>
+<li>ex. 管理後臺、備份檔路徑</li>
+</ul>
+<p><strong>Git Leak</strong><br>版本控制系統<br>可還原網站原始碼</p>
+<ul>
+<li>工具 <a target="_blank" rel="noopener" href="https://github.com/lijiejie/GitHack">https://github.com/lijiejie/GitHack</a></li>
+</ul>
+<p><strong>google hacking</strong></p>
+<p><img src="https://public-imgbed.pages.dev/file/1736316233341_image.png" alt="image.png"></p>
+<p>註：<a target="_blank" rel="noopener" href="https://www.exploit-db.com/google-hacking-database">https://www.exploit-db.com/google-hacking-database</a></p>
+<h3 id="Web-Sell"><a href="#Web-Sell" class="headerlink" title="Web Sell"></a>Web Sell</h3><p><strong>Web 兩種型態</strong></p>
+<p>File-base：將檔案映射到檔案路徑下</p>
+<p>route base：定義路由，會有對應的function，並且到路由的路徑時就會運行function</p>
+<p><img src="https://public-imgbed.pages.dev/file/1739931892435_image.png" alt="image.png"></p>
+<h3 id="Path-Traversal"><a href="#Path-Traversal" class="headerlink" title="Path Traversal"></a>Path Traversal</h3><p>在一個路徑下有一個?file&#x3D;xx.xx的檔案，這時候可以透過直覺透過..&#x2F;..&#x2F;..&#x2F;去道不同的路徑</p>
+<h3 id="LFI-Local-File-Inclution"><a href="#LFI-Local-File-Inclution" class="headerlink" title="LFI (Local File Inclution)"></a>LFI (Local File Inclution)</h3><ul>
+<li>一個php的檔案被include，但是因為重要資運被註解了，所以被parse之後就消失了，透過php filter chain 創造不同的編碼方式，像是將php編碼成base64 code讓檔案不會被parse<br>使用方式：php:&#x2F;&#x2F;filter&#x2F;read&#x3D;string.rot13|covert.base64-encode&#x2F;resource&#x3D;<br>string.rot13|covert.base64-encode(編碼方式透過|pipeline讓字串用不同的方式編碼，所以可以透過編碼的方式構造出一個RCE的code)<br>參考資料：</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/synacktiv/php_filter_chain_generator/blob/main/php_filter_chain_generator.py">https://github.com/synacktiv/php_filter_chain_generator/blob/main/php_filter_chain_generator.py</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/wupco/PHP_INCLUDE_TO_SHELL_CHAR_DICT">https://github.com/wupco/PHP_INCLUDE_TO_SHELL_CHAR_DICT</a></li>
+</ul>
+<h3 id="Injection"><a href="#Injection" class="headerlink" title="Injection"></a>Injection</h3><ul>
+<li>Code Injection</li>
+<li>Command Injection </li>
+<li>Argument Injection</li>
+<li>SQL Injection</li>
+<li>NoSQL Injection</li>
+<li>Server side template Injection(SSTI)</li>
+<li>CRLF Injection</li>
+<li>Css Injection</li>
+</ul>
+<p><strong>code Injection</strong></p>
+<h3 id="Augment-Injection"><a href="#Augment-Injection" class="headerlink" title="Augment Injection"></a>Augment Injection</h3><h3 id="Web-Reverse"><a href="#Web-Reverse" class="headerlink" title="Web Reverse"></a>Web Reverse</h3><p>Webhook reference</p>
+<h3 id="SQL-injection"><a href="#SQL-injection" class="headerlink" title="SQL injection"></a>SQL injection</h3><p><img src="https://public-imgbed.pages.dev/file/1741274816492_image.png" alt="image.png"><br><img src="https://public-imgbed.pages.dev/file/1741274903738_image.png" alt="image.png"><br><img src="https://public-imgbed.pages.dev/file/1741274940100_image.png" alt="image.png"></p>
+<p><strong>SQL injection</strong></p>
+<ul>
+<li>Stacked：用分號隔開各種句子</li>
+<li>Union：前面的輸出和後面的輸出連在一起</li>
+<li>Time：透過Sleep來判斷條件</li>
+<li>Boolean：透過布林直結果來判斷條件</li>
+<li>Error Based：透過錯誤訊息來取得資料</li>
+<li>Out of Band：讀檔、寫檔<br>reference：<a target="_blank" rel="noopener" href="https://github.com/w181496/Web-CTF-Cheatsheet?tab=readme-ov-file#php-%E5%85%B6%E4%BB%96%E7%89%B9%E6%80%A7">https://github.com/w181496/Web-CTF-Cheatsheet?tab=readme-ov-file#php-%E5%85%B6%E4%BB%96%E7%89%B9%E6%80%A7</a><br><strong>SQL 與 NoSQL(Not Only SQL)</strong><br>比較：NoSQL不需要提定義schema節<br><img src="https://public-imgbed.pages.dev/file/1741311849826_image.png" alt="image.png"></li>
+</ul>
+<p>Blind Base：Blind-Base 的核心在於利用與法規則來獲得部分答案的正確性，從而迭帶出答案</p>
+<h3 id="SSRF"><a href="#SSRF" class="headerlink" title="SSRF"></a>SSRF</h3><p>伺服器端請求偽造，可以請求到伺服器內網或是其他網域等</p>
+<h3 id="Frontend-Security"><a href="#Frontend-Security" class="headerlink" title="Frontend Security"></a>Frontend Security</h3><ul>
+<li>XSS</li>
+<li>CSRF</li>
+<li>XSLeaks</li>
+<li>Lax + POST </li>
+<li>JavaScript pseudo protocal  </li>
+<li>Context-aware XSS</li>
+</ul>
+<h3 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h3><ul>
+<li>跨網站指令碼(cross-site scripting) </li>
+<li>讓別人的前端執行攻擊者的 JavaScript</li>
+<li>常發生在未妥善處理輸入，進而被輸入XSS攻擊代碼 例： “html的input標籤 、 alert等</li>
+</ul>
+<p><strong>XSS 分類(根據payload的來源)</strong></p>
+<ul>
+<li>Reflected XSS：從後端傳到前端，出現了XSS payload</li>
+<li>Stored XSS：payload 備取在database裡面，每次client請求就會出現XSS payload</li>
+<li>DOM-based XSS：使用DOM的操作在前端產生XSS payload</li>
+</ul>
+<p><strong>Reflected XSS</strong><br><img src="https://public-imgbed.pages.dev/file/1743675251379_image.png" alt="image.png"><br><strong>Stored XSS</strong><br><img src="https://public-imgbed.pages.dev/file/1743675232285_image.png" alt="image.png"></p>
+<p><strong>DOM XSS</strong><br><img src="https://public-imgbed.pages.dev/file/1743675245721_image.png" alt="image.png"></p>
+<p><strong>常見的XSS Payload</strong></p>
+<ul>
+<li>fetch() 將資料傳出去</li>
+<li>document.cookie 拿到 Cookies</li>
+<li>html2canvas 可做到螢幕截圖</li>
+<li>keylogger</li>
+<li>alert<br>etc..</li>
+</ul>
+<p><strong>XSS worm</strong></p>
+<ul>
+<li>與一般XSS不同的是，他會選擇注入惡意 javascript 到其他客戶端，導致payload 在使用端互相注入</li>
+<li>擴大危害的手法</li>
+</ul>
+<p><strong>XSS prevent</strong></p>
+<ul>
+<li>HTML Sanitize<ul>
+<li>將 HTML 中危險的部分處理掉<ul>
+<li>但是很難將所有情況完美處理</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Dom purify<ul>
+<li>被廣泛使用，已經很難在上面找到缺漏<ul>
+<li>但不正確使用仍會造成資安問題</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>CSP<br>-透過網頁上規範白名單規則，讓瀏覽器控制對外部的請求</li>
+</ul>
+<p><strong>CSP XSS prevent</strong><br><img src="https://public-imgbed.pages.dev/file/1743771551950_image.png" alt="image.png"><br><img src="https://public-imgbed.pages.dev/file/1743778053004_image.png" alt="image.png"><br>常見的CSP Directive</p>
+<ul>
+<li>default-src</li>
+<li>script-src</li>
+<li>image-src</li>
+<li>connect-src</li>
+<li>style-src</li>
+<li>navigate-to<br><img src="https://public-imgbed.pages.dev/file/1743771762893_image.png" alt="image.png"></li>
+</ul>
+<p>**CSP bypassing - via JSONP</p>
+<p><strong>javascript 偽協議</strong></p>
+<p>s</p>
+<h3 id="Self-XSS"><a href="#Self-XSS" class="headerlink" title="Self-XSS"></a>Self-XSS</h3><h3 id="Blind-XSS"><a href="#Blind-XSS" class="headerlink" title="Blind XSS"></a>Blind XSS</h3><p>XSS 在看不到的地方與不知道的時間點被執行</p>
+
+      </section>
+
+      
+      
+        <nav class="article-nav">
+          
+            <div class="article-nav-item layout-padding">
+  <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
+    
+    <div class="card-text">
+      
+        <a href="/2025/04/26/scist-reverse/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">scist reverse</h2>
+        </a>
+      
+      <div class="card-text--row">Newer</div>
+    </div>
+  </article>
+</div>
+          
+          
+            <div class="article-nav-item layout-padding">
+  <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
+    
+    <div class="card-text">
+      
+        <a href="/2024/12/11/Crypto/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">Crypto</h2>
+        </a>
+      
+      <div class="card-text--row">Older</div>
+    </div>
+  </article>
+</div>
+          
+        </nav>
+      
+
+      <section class="page-message-container layout-padding">
+        
+
+
+  <h3 class="widget-title">留言</h3>
+  
+  
+
+  
+  
+
+
+      </section>
+    </div>
+    <div class="widget-info">
+      <section class="widget-author widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-body">
+    
+      <img src="https://public-imgbed.pages.dev/file/1739948460764_image.png" class="soft-size--round soft-style--box" alt="Luc Chang">
+    
+    
+      <h2>Luc Chang</h2>
+    
+    
+      <p>菜機工程師努力便強大</p>
+    
+
+    <div class="count-box">
+      <div class="count-box--item">
+        <svg class="icon icon-article" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M240.51564747 647.74217627h196.07203239c16.59071043 0 30.16492806-13.57421762 30.16492805-30.16492806V165.10332731c0-33.18142087-30.16492806-60.32985613-60.32985612-60.32985611H245.04038668C225.43318342 104.7734712 210.35071939 119.85593522 210.35071939 139.46313845V617.57724821c0 16.59071043 13.57421762 30.16492806 30.16492808 30.16492806z m663.62841731-452.47392089v482.63884894c0 33.18142087-27.14843525 60.32985613-60.32985612 60.32985613H180.18579134c-33.18142087 0-60.32985613-27.14843525-60.32985612-60.32985613V195.26825538c-49.77213131 0-90.49478418 40.72265287-90.49478417 90.49478417v452.4739209c0 49.77213131 40.72265287 90.49478418 90.49478417 90.49478417h286.56681657c16.59071043 0 30.16492806 13.57421762 30.16492807 30.16492807s13.57421762 30.16492806 30.16492805 30.16492806h90.49478418c16.59071043 0 30.16492806-13.57421762 30.16492805-30.16492806s13.57421762-30.16492806 30.16492807-30.16492807h286.56681657c49.77213131 0 90.49478418-40.72265287 90.49478417-90.49478417V285.76303955c0-49.77213131-40.72265287-90.49478418-90.49478417-90.49478417zM587.41232014 647.74217627h191.54729318c19.60720323 0 34.68966726-15.08246403 34.68966729-34.68966727V134.93839925c0-16.59071043-13.57421762-30.16492806-30.16492808-30.16492805H617.57724821c-30.16492806 0-60.32985613 27.14843525-60.32985612 60.32985611v452.4739209c0 16.59071043 13.57421762 30.16492806 30.16492805 30.16492806z" fill="currentColor"></path>
+</svg>
+        <span>10</span>
+      </div>
+      <div class="count-box--item">
+        <svg class="icon icon-categories" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M900.3614811 257.09082106h-339.81629553l-67.96326003-101.9448889c-19.41807444-29.12711113-48.54518557-43.69066667-82.52681443-43.69066667H123.6385189c-53.39970333 0-97.09036999 43.69066667-97.09037113 97.09036999v582.54222222c0 53.39970333 43.69066667 97.09036999 97.09037113 97.09037002h776.7229622c53.39970333 0 97.09036999-43.69066667 97.09037113-97.09037002V354.18119104c0-53.39970333-43.69066667-97.09036999-97.09037113-97.09036998z m-97.09036999 242.72592554H220.72888889c-24.27259221 0-48.54518557-24.27259221-48.54518556-48.54518556s24.27259221-48.54518557 48.54518556-48.54518444h582.54222222c24.27259221 0 48.54518557 24.27259221 48.54518556 48.54518444s-24.27259221 48.54518557-48.54518556 48.54518556z" fill="currentColor"></path>
+</svg>
+        0
+      </div>
+      <div class="count-box--item">
+        <svg class="icon icon-tags" viewBox="0 0 1098 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M283.42180005 272q0-28.38857157-20.09142843-48.48000001t-48.47999998-20.09142842-48.48000002 20.09142842-20.09142846 48.48000001 20.09142846 48.48 48.48000002 20.09142843 48.47999998-20.09142843 20.09142843-48.48zM855.0332285 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.03999997 263.58857157q-20.9142853 19.81714313-48.75428534 19.81714312-28.38857157 0-48.20571468-19.81714312l-383.04-383.58857157q-20.36571468-19.81714313-34.55999999-54.10285688t-14.19428534-62.6742853l0-222.85714313q0-27.84000002 20.36571469-48.20571469t48.2057147-20.36571466l222.85714313 0q28.38857157 0 62.6742853 14.19428529t54.65142842 34.55999999l383.04000001 382.49142843q19.81714313 20.9142853 19.81714314 48.75428532zM1060.74751475 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.04 263.58857157q-20.9142853 19.81714313-48.75428531 19.81714312-19.26857155 0-31.61142843-7.47428531t-28.38857159-24.13714314l251.79428534-251.7942853q19.81714313-19.81714313 19.81714308-48.20571469 0-27.84000002-19.81714308-48.75428531l-383.04000001-382.49142845q-20.36571468-20.36571468-54.65142842-34.55999999t-62.67428532-14.19428534l120 0q28.38857157 0 62.67428532 14.19428534t54.65142842 34.55999999l383.03999998 382.49142845q19.81714313 20.9142853 19.81714314 48.75428531z" fill="currentColor"></path>
+</svg>
+        9
+      </div>
+    </div>
+  </div>
+</section>
+
+      
+
+      
+
+      <section class="widget-categories widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-title">
+    <svg class="icon icon-categories" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M900.3614811 257.09082106h-339.81629553l-67.96326003-101.9448889c-19.41807444-29.12711113-48.54518557-43.69066667-82.52681443-43.69066667H123.6385189c-53.39970333 0-97.09036999 43.69066667-97.09037113 97.09036999v582.54222222c0 53.39970333 43.69066667 97.09036999 97.09037113 97.09037002h776.7229622c53.39970333 0 97.09036999-43.69066667 97.09037113-97.09037002V354.18119104c0-53.39970333-43.69066667-97.09036999-97.09037113-97.09036998z m-97.09036999 242.72592554H220.72888889c-24.27259221 0-48.54518557-24.27259221-48.54518556-48.54518556s24.27259221-48.54518557 48.54518556-48.54518444h582.54222222c24.27259221 0 48.54518557 24.27259221 48.54518556 48.54518444s-24.27259221 48.54518557-48.54518556 48.54518556z" fill="currentColor"></path>
+</svg>
+      <span>CATEGORIES</span>
+  </div>
+  <div class="widget-body">
+    <ul class="categories-list">
+      
+    </ul>
+  </div>
+</section>
+
+      <section class="widget-tags widget-item  layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-title">
+    <svg class="icon icon-tags" viewBox="0 0 1098 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M283.42180005 272q0-28.38857157-20.09142843-48.48000001t-48.47999998-20.09142842-48.48000002 20.09142842-20.09142846 48.48000001 20.09142846 48.48 48.48000002 20.09142843 48.47999998-20.09142843 20.09142843-48.48zM855.0332285 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.03999997 263.58857157q-20.9142853 19.81714313-48.75428534 19.81714312-28.38857157 0-48.20571468-19.81714312l-383.04-383.58857157q-20.36571468-19.81714313-34.55999999-54.10285688t-14.19428534-62.6742853l0-222.85714313q0-27.84000002 20.36571469-48.20571469t48.2057147-20.36571466l222.85714313 0q28.38857157 0 62.6742853 14.19428529t54.65142842 34.55999999l383.04000001 382.49142843q19.81714313 20.9142853 19.81714314 48.75428532zM1060.74751475 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.04 263.58857157q-20.9142853 19.81714313-48.75428531 19.81714312-19.26857155 0-31.61142843-7.47428531t-28.38857159-24.13714314l251.79428534-251.7942853q19.81714313-19.81714313 19.81714308-48.20571469 0-27.84000002-19.81714308-48.75428531l-383.04000001-382.49142845q-20.36571468-20.36571468-54.65142842-34.55999999t-62.67428532-14.19428534l120 0q28.38857157 0 62.67428532 14.19428534t54.65142842 34.55999999l383.03999998 382.49142845q19.81714313 20.9142853 19.81714314 48.75428531z" fill="currentColor"></path>
+</svg>
+    <span>TAGS</span>
+  </div>
+  <div class="widget-body">
+    <div class="tags-cloud">
+      <a href="/tags/HITCON-2025-%E8%B3%87%E8%A8%8A%E5%AE%89%E5%85%A8/" style="font-size: 10px;" class="tags-cloud-0">HITCON 2025, 資訊安全</a> <a href="/tags/Linux/" style="font-size: 10px;" class="tags-cloud-0">Linux</a> <a href="/tags/cryptography-%E8%B3%87%E8%A8%8A%E5%AE%89%E5%85%A8/" style="font-size: 10px;" class="tags-cloud-0">cryptography, 資訊安全</a> <a href="/tags/cyber-security-reverse/" style="font-size: 10px;" class="tags-cloud-0">cyber-security, reverse</a> <a href="/tags/google-hacking-%E8%B3%87%E8%A8%8A%E5%AE%89%E5%85%A8/" style="font-size: 10px;" class="tags-cloud-0">google-hacking, 資訊安全</a> <a href="/tags/pwntools/" style="font-size: 10px;" class="tags-cloud-0">pwntools</a> <a href="/tags/web/" style="font-size: 10px;" class="tags-cloud-0">web</a> <a href="/tags/web-security-intro-blog/" style="font-size: 10px;" class="tags-cloud-0">web-security, intro-blog</a> <a href="/tags/%E5%AF%86%E7%A2%BC%E5%AD%B8/" style="font-size: 10px;" class="tags-cloud-0">密碼學</a>
+    </div>
+  </div>
+</section>
+    </div>
+  </article>
+</div>
+
+    <!-- footer container -->
+<footer id="footer" class="footer">
+  <div class="footer-container">
+    
+    <div class="social-icons">
+      
+        
+          <a href="https://www.instagram.com/happyluc1114/" class="soft-size--primary soft-style--box" target="_blank" rel="noopener noreferrer">
+            <svg class="icon icon-ins" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M512 0C372.906667 0 355.541333 0.64 300.928 3.072 246.4 5.632 209.28 14.208 176.64 26.88c-33.664 13.056-62.250667 30.592-90.709333 59.050667S39.893333 142.933333 26.88 176.64C14.208 209.28 5.589333 246.4 3.072 300.928 0.512 355.541333 0 372.906667 0 512s0.64 156.458667 3.072 211.072c2.56 54.485333 11.136 91.648 23.808 124.288a251.093333 251.093333 0 0 0 59.050667 90.709333A250.368 250.368 0 0 0 176.64 997.12c32.682667 12.629333 69.802667 21.290667 124.288 23.808C355.541333 1023.488 372.906667 1024 512 1024s156.458667-0.64 211.072-3.072c54.485333-2.56 91.648-11.178667 124.288-23.808a251.648 251.648 0 0 0 90.709333-59.050667 250.026667 250.026667 0 0 0 59.050667-90.709333c12.629333-32.64 21.290667-69.802667 23.808-124.288 2.56-54.613333 3.072-71.978667 3.072-211.072s-0.64-156.458667-3.072-211.072c-2.56-54.485333-11.178667-91.690667-23.808-124.288a251.306667 251.306667 0 0 0-59.050667-90.709333A249.472 249.472 0 0 0 847.36 26.88c-32.64-12.672-69.802667-21.290667-124.288-23.808C668.458667 0.512 651.093333 0 512 0z m0 92.16c136.661333 0 152.96 0.682667 206.933333 3.029333 49.92 2.346667 77.013333 10.624 95.018667 17.706667 23.978667 9.258667 40.96 20.352 58.965333 38.229333 17.877333 17.92 28.970667 34.944 38.229334 58.922667 6.997333 18.005333 15.36 45.098667 17.621333 95.018667 2.432 54.016 2.986667 70.229333 2.986667 206.933333s-0.64 152.96-3.157334 206.933333c-2.602667 49.92-10.922667 77.013333-17.962666 95.018667a162.56 162.56 0 0 1-38.357334 58.965333 159.744 159.744 0 0 1-58.88 38.229334c-17.92 6.997333-45.44 15.36-95.36 17.621333-54.357333 2.432-70.357333 2.986667-207.317333 2.986667-137.002667 0-153.002667-0.64-207.317333-3.157334-49.962667-2.602667-77.482667-10.922667-95.402667-17.962666a158.549333 158.549333 0 0 1-58.837333-38.357334 155.477333 155.477333 0 0 1-38.4-58.88c-7.04-17.92-15.317333-45.44-17.92-95.36-1.92-53.76-2.602667-70.357333-2.602667-206.677333 0-136.362667 0.682667-153.002667 2.602667-207.402667 2.602667-49.92 10.88-77.397333 17.92-95.317333 8.96-24.32 20.437333-40.96 38.4-58.922667 17.877333-17.877333 34.56-29.397333 58.837333-38.314666 17.92-7.082667 44.842667-15.402667 94.762667-17.962667 54.4-1.92 70.4-2.56 207.317333-2.56l1.92 1.28z m0 156.928a262.912 262.912 0 1 0 0 525.824 262.912 262.912 0 1 0 0-525.824zM512 682.666667c-94.293333 0-170.666667-76.373333-170.666667-170.666667s76.373333-170.666667 170.666667-170.666667 170.666667 76.373333 170.666667 170.666667-76.373333 170.666667-170.666667 170.666667z m334.762667-443.946667a61.482667 61.482667 0 0 1-122.88 0 61.44 61.44 0 0 1 122.88 0z"></path>
+</svg>
+
+          </a>
+        
+      
+        
+      
+        
+      
+        
+          <a href="https://github.com/LucChang?tab=repositories" class="soft-size--primary soft-style--box" target="_blank" rel="noopener noreferrer">
+            <svg class="icon icon-github" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M64.6 512c0 195.6 125.4 361.9 300.1 422.9 23.5 5.9 19.9-10.8 19.9-22.2v-77.6c-135.8 15.9-141.3-74-150.5-89-18.5-31.5-61.9-39.5-49-54.5 31-15.9 62.5 4 98.9 58 26.4 39.1 77.9 32.5 104.1 26 5.7-23.5 17.9-44.5 34.7-60.9-140.7-25.2-199.4-111.1-199.4-213.3 0-49.5 16.4-95.1 48.4-131.8-20.4-60.6 1.9-112.4 4.9-120.1 58.2-5.2 118.5 41.6 123.3 45.3 33.1-8.9 70.8-13.7 112.9-13.7 42.4 0 80.3 4.9 113.5 13.9 11.3-8.6 67.3-48.8 121.4-43.9 2.9 7.7 24.7 58.3 5.5 118.1 32.5 36.8 49 82.8 49 132.4 0 102.3-59 188.3-200.2 213.2 23.5 23.3 38.1 55.5 38.1 91.1v112.7c0.8 9 0 17.9 15.1 17.9C832.7 877 960.4 709.4 960.4 512.1c0-247.5-200.6-447.9-447.9-447.9C265 64.1 64.6 264.5 64.6 512z"></path>
+</svg>
+          </a>
+        
+      
+        
+          <a href="https://x.com/longmayi248272" class="soft-size--primary soft-style--box" target="_blank" rel="noopener noreferrer">
+            <svg class="icon icon-twitter" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M962.285714 233.142857q-38.285714 56-92.571429 95.428571 0.571429 8 0.571429 24 0 74.285714-21.714286 148.285714t-66 142-105.428571 120.285714-147.428571 83.428571-184.571429 31.142857q-154.857143 0-283.428571-82.857143 20 2.285714 44.571429 2.285714 128.571429 0 229.142857-78.857143-60-1.142857-107.428571-36.857143t-65.142857-91.142857q18.857143 2.857143 34.857143 2.857143 24.571429 0 48.571429-6.285714-64-13.142857-106-63.714286t-42-117.428571l0-2.285714q38.857143 21.714286 83.428571 23.428571-37.714286-25.142857-60-65.714286t-22.285714-88q0-50.285714 25.142857-93.142857 69.142857 85.142857 168.285714 136.285714t212.285714 56.857143q-4.571429-21.714286-4.571429-42.285714 0-76.571429 54-130.571429t130.571429-54q80 0 134.857143 58.285714 62.285714-12 117.142857-44.571429-21.142857 65.714286-81.142857 101.714286 53.142857-5.714286 106.285714-28.571429z"></path>
+</svg>
+          </a>
+        
+      
+    </div>
+     
+    <p>&copy; 2025 <a href="/" target="_blank">LucChang</a></p>
+
+    
+
+    <p>Powered by <a href="https://hexo.io" target="_blank" rel="noopener noreferrer">Hexo</a> Theme - <a href="https://github.com/miiiku/flex-block" target="_blank" rel="noopener noreferrer author">flex-block</a></p>
+
+    <p>
+      <a href="javascript:;" id="theme-light">🌞 浅色</a>
+      <a href="javascript:;" id="theme-dark">🌛 深色</a>
+      <a href="javascript:;" id="theme-auto">🤖️ 自动</a>
+    </p>
+  </div>
+</footer>
+  </div>
+
+  <div class="back-to-top-fixed soft-size--round soft-style--box">
+    <svg class="icon icon-back-to-top" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+      <path d="M725.333333 426.666667c-12.8 0-21.333333-4.266667-29.866667-12.8l-213.333333-213.333333c-17.066667-17.066667-17.066667-42.666667 0-59.733333s42.666667-17.066667 59.733333 0l213.333333 213.333333c17.066667 17.066667 17.066667 42.666667 0 59.733333C746.666667 422.4 738.133333 426.666667 725.333333 426.666667z"></path>
+      <path d="M298.666667 426.666667c-12.8 0-21.333333-4.266667-29.866667-12.8-17.066667-17.066667-17.066667-42.666667 0-59.733333l213.333333-213.333333c17.066667-17.066667 42.666667-17.066667 59.733333 0s17.066667 42.666667 0 59.733333l-213.333333 213.333333C320 422.4 311.466667 426.666667 298.666667 426.666667z"></path>
+      <path d="M512 896c-25.6 0-42.666667-17.066667-42.666667-42.666667L469.333333 170.666667c0-25.6 17.066667-42.666667 42.666667-42.666667s42.666667 17.066667 42.666667 42.666667l0 682.666667C554.666667 878.933333 537.6 896 512 896z"></path>
+    </svg>
+  </div>
+
+  
+  
+
+
+
+
+
+
+<!-- copy button  -->
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
+
+<!-- https://clipboardjs.com/ -->
+
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+  
+  <!-- 尾部用户自定义相关内容 -->
+</body>
+</html>

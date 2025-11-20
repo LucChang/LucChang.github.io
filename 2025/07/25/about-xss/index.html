@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color" content="#3367D6"/>
+  <link rel="apple-touch-icon" href="/icons-192.png">
+  <link rel="manifest" href="/manifest.json">
+  
+  <meta name="generator" content="Hexo 7.3.0">
+
+  
+
+  
+    <meta name="keywords" content="資訊安全,網站安全,網站攻擊,網站防護,網站漏洞,網站攻擊工具,網站防護工具,網站漏洞工具">
+  
+
+  
+    <meta name="author" content="LucChang">
+  
+
+  
+
+  
+
+  <title>深入理解 Cross-Site Scripting (XSS) 攻擊 | 筆記收藏匣</title>
+
+  
+
+  
+    <link rel="shortcut icon" href="/goldball_face.ico">
+  
+
+  
+
+  
+
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body>
+  <div class="root-container">
+    
+<!-- header container -->
+<header class="header-container post">
+  
+    <div class="post-image" style="background-image: url(https://0af5db21.public-imgbed.pages.dev/file/1762521670450_6F1A5525-A7C0-4701-BE20-CD8F3F9868DB.jpg)"></div>
+  
+
+  <!-- navbar -->
+<nav class="navbar">
+  <div class="navbar-content">
+    <!-- logo -->
+    <div class="navbar-logo">
+      <a href="/">
+        
+          LucChang Blog
+        
+      </a>
+    </div>
+    <!-- link -->
+    <div class="navbar-link">
+      <div class="navbar-btn">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <ul class="navbar-list">
+        
+          <li class="navbar-list-item"><a href="/">首頁</a></li>
+        
+          <li class="navbar-list-item"><a href="/archives">歸檔</a></li>
+        
+          <li class="navbar-list-item"><a href="/links">朋友</a></li>
+        
+          <li class="navbar-list-item"><a href="/about">關於我</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+    <div class="header-content">
+      <div class="post-text layout-block">
+        <div class="layout-margin">
+          <h1 class="title-wrap">深入理解 Cross-Site Scripting (XSS) 攻擊</h1>
+          <h2 class="title-sub-wrap">
+            <strong>LucChang</strong>
+            <span>发布于</span>
+            <time  class="article-date" datetime="2025-07-25T02:46:31.000Z" itemprop="datePublished">2025-07-25</time>
+          </h2>
+          
+            <h2 class="last-time">
+              <span>最后更新于</span>
+              <time  class="article-updated" datetime="2025-11-13T15:21:00.645Z" itemprop="dateUpdated">2025-11-13</time>
+            </h2>
+          
+          
+          <ul class="wrap-list dark">
+  
+</ul>
+          <ul class="wrap-list dark">
+  
+    <li><a href="/tags/web-security-intro-blog/">🏷️ web-security, intro-blog</a></li>
+  
+</ul>
+        </div>
+      </div>
+    </div>
+  
+
+  
+  
+  
+</header>
+
+    <!-- 文章 -->
+
+<!-- 文章内容 -->
+<div class="body-container">
+  <article class="content-container layout-block post-container">
+    <div class="article-info">
+      
+      
+      
+      
+      <section class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box">
+        <h1 id="深入理解-Cross-Site-Scripting-XSS-攻擊與防禦"><a href="#深入理解-Cross-Site-Scripting-XSS-攻擊與防禦" class="headerlink" title="深入理解 Cross-Site Scripting (XSS) 攻擊與防禦"></a>深入理解 Cross-Site Scripting (XSS) 攻擊與防禦</h1><p>Cross-Site Scripting (XSS)，即跨網站指令碼，是前端開發中常見且危險的資安漏洞。它的核心概念是讓攻擊者能夠在其他使用者（客戶端）的瀏覽器上執行惡意的 JavaScript 或其他指令碼，進而竊取敏感資訊、劫持使用者會話，甚至操控網頁行為。</p>
+<p>XSS 攻擊之所以發生，通常是因為網站未能妥善處理來自使用者的輸入，導致輸入的內容被瀏覽器誤認為是可執行的程式碼，而非單純的資料。常見的輸入點包括表單欄位（如搜尋框、留言區、使用者名稱）、URL 參數等。攻擊者可能會輸入類似 <code>&lt;script&gt;alert(&#39;XSS&#39;)&lt;/script&gt;</code> 或 <code>&lt;img src onerror=&quot;alert(&#39;XSS&#39;)&quot;&gt;</code> 這樣的代碼來測試或發動攻擊。</p>
+<p>根據惡意代碼 (payload) 的來源和其在伺服器上的存儲方式，XSS 可以分為幾種類型：</p>
+<h2 id="XSS-的分類-依據-Payload-的來源-儲存"><a href="#XSS-的分類-依據-Payload-的來源-儲存" class="headerlink" title="XSS 的分類 (依據 Payload 的來源&#x2F;儲存)"></a>XSS 的分類 (依據 Payload 的來源&#x2F;儲存)</h2><ol>
+<li><p><strong>Reflected XSS (反射型 XSS)：</strong><br>這種攻擊的 payload 不會被永久儲存到伺服器的資料庫中。攻擊者通常會將惡意代碼嵌入到 URL 參數中，然後誘騙受害者點擊這個包含 payload 的惡意連結。當受害者的瀏覽器向伺服器發出請求時，伺服器未經處理地將包含 payload 的內容反射回受害者的瀏覽器，導致 payload 在受害者的瀏覽器中執行。它的生命週期短暫，只在使用者訪問帶有惡意參數的 URL 時觸發一次。</p>
+</li>
+<li><p><strong>Stored XSS (儲存型 XSS)：</strong><br>這種攻擊是最具破壞力的類型之一。攻擊者成功地將惡意 payload 永久地儲存到目標網站的資料庫中（例如在論壇發帖、留言或修改使用者資料時注入）。當其他使用者瀏覽包含此 payload 的網頁時，伺服器會將儲存的惡意代碼連同正常內容一起發送給客戶端瀏覽器，導致 payload 在每個訪問該頁面的使用者瀏覽器中執行。危害範圍廣，且不需要額外的使用者互動（如點擊連結）。</p>
+</li>
+<li><p><strong>DOM-based XSS (基於 DOM 的 XSS)：</strong><br>與前兩種主要依賴伺服器端處理不同，DOM-based XSS 漏洞存在於前端的 JavaScript 代碼中。惡意 payload 可能來自 URL 的片段識別符號（# 後面的部分）或其他客戶端可控的來源。前端 JavaScript 使用這些受控的資料不安全地操作文件物件模型 (DOM)，例如將資料寫入 <code>innerHTML</code> 或使用 <code>eval()</code> 函數，導致 payload 被瀏覽器作為程式碼執行。這種攻擊完全在客戶端進行，伺服器端可能完全不受影響。</p>
+</li>
+</ol>
+<h2 id="常見的-XSS-Payload-目標"><a href="#常見的-XSS-Payload-目標" class="headerlink" title="常見的 XSS Payload 目標"></a>常見的 XSS Payload 目標</h2><p>攻擊者注入惡意 JavaScript 的目的多種多樣，常見的 payload 功能包括：</p>
+<ul>
+<li><code>Workspace()</code> 或 <code>XMLHttpRequest</code>: 將使用者的敏感資料（如 Cookies）發送到攻擊者控制的伺服器。</li>
+<li><code>document.cookie</code>: 竊取使用者的 Session Cookies，可能導致攻擊者劫持使用者會話。</li>
+<li><code>html2canvas</code> (或其他截圖庫): 對使用者正在瀏覽的頁面進行截圖，可能捕獲敏感視覺資訊。</li>
+<li>Keylogger: 記錄使用者在頁面上的鍵盤輸入，竊取密碼、信用卡號等。</li>
+<li><code>alert()</code>: 最簡單的 PoC (Proof of Concept)，用於驗證 XSS 漏洞是否存在。</li>
+<li>重新導向使用者到惡意網站、修改網頁內容進行釣魚等。</li>
+</ul>
+<h2 id="XSS-的進階概念"><a href="#XSS-的進階概念" class="headerlink" title="XSS 的進階概念"></a>XSS 的進階概念</h2><ul>
+<li><p><strong>XSS Worm (XSS 蠕蟲)：</strong><br>  一種更進階的 XSS 攻擊形式。惡意 JavaScript 不僅攻擊當前使用者，還會利用當前使用者的權限（如社交網路發帖權限）將 XSS payload 注入到他們能影響到的內容中，進而感染他們的聯繫人或粉絲。這導致 payload 像病毒一樣在使用者之間互相傳播，造成大規模感染。</p>
+</li>
+<li><p><strong>Blind XSS (盲打型 XSS)：</strong><br>  攻擊者注入 payload 後，不會立即看到效果，也不知道 payload 何時何地會被觸發。payload 被儲存在網站的某個位置，可能是在後台管理系統、日誌查看器、客戶服務面板等只有網站內部人員會訪問的地方。當內部人員訪問這些頁面時，payload 被執行，並通常會“打回來”通知攻擊者（例如向攻擊者發送一個包含執行環境資訊的請求）。攻擊者是「盲打」，等待 payload 在一個未知的時機和地點被「看到」。</p>
+</li>
+<li><p><strong>Self-XSS (自體 XSS)：</strong><br>  這是一種需要使用者自己手動執行惡意代碼的 XSS。通常攻擊者會欺騙使用者在瀏覽器的開發者控制台中貼上並執行一段 JavaScript 代碼。這種攻擊通常不能強加給使用者，主要依賴於社會工程學來誘導使用者自己攻擊自己，對其他使用者不構成直接威脅，但仍可能導致帳戶被盜用。</p>
+</li>
+</ul>
+<h2 id="XSS-的防禦策略"><a href="#XSS-的防禦策略" class="headerlink" title="XSS 的防禦策略"></a>XSS 的防禦策略</h2><p>防禦 XSS 是一個需要多層次方法的課題：</p>
+<ol>
+<li><p><strong>輸入驗證 (Input Validation) 與輸出編碼 (Output Encoding)：</strong><br>這是最基本也是最重要的防禦。</p>
+<ul>
+<li><strong>輸入驗證：</strong> 檢查使用者輸入的內容是否符合預期的格式和類型。例如，如果只允許數字，則拒絕包含其他字元的輸入。這有助於過濾掉明顯不符合規範的輸入。</li>
+<li><strong>輸出編碼&#x2F;轉義 (Encoding&#x2F;Escaping)：</strong> 當需要在 HTML 頁面中顯示使用者輸入的內容時，必須對所有輸出進行嚴格的編碼或轉義。將具有特殊意義的 HTML 字元（如 <code>&lt;</code>, <code>&gt;</code>, <code>&quot;</code>, <code>&#39;</code>, <code>&amp;</code>, <code>/</code> 等）轉換為它們的 HTML 實體（如 <code>&amp;lt;</code>, <code>&amp;gt;</code> 等）。這樣瀏覽器就會把這些內容當作普通文本顯示，而不會解析為 HTML 標籤或 JavaScript 代碼。這是防禦 Reflected 和 Stored XSS 的首要措施。</li>
+</ul>
+</li>
+<li><p><strong>HTML 過濾 (HTML Sanitization)：</strong><br>當網站允許使用者輸入包含 HTML 標籤的富文本內容時（例如評論區的粗體、斜體格式），不能簡單地全部編碼。這時需要使用 HTML 過濾器。過濾器的作用是移除或修改輸入 HTML 中潛在的危險元素（如 <code>&lt;script&gt;</code>, <code>&lt;iframe&gt;</code>, <code>&lt;svg&gt;</code> 標籤）和危險屬性（如 <code>onerror</code>, <code>onload</code>, <code>href</code> 中的 <code>javascript:</code> 偽協議等），只保留安全的 HTML 標籤和屬性。這是一個複雜的任務，很難手動完美處理所有情況。</p>
+<ul>
+<li><strong>DOMPurify：</strong> 是一個被廣泛使用的、強健的 HTML 過濾庫，它在瀏覽器端運行，能有效淨化 HTML 片段。但即使是 DOMPurify，不正確的使用方式也可能引入漏洞，需要仔細閱讀其文檔。</li>
+</ul>
+</li>
+<li><p><strong>內容安全政策 (Content Security Policy, CSP)：</strong><br>CSP 是一種由瀏覽器強制執行的安全層。通過在 HTTP 頭部或 HTML 的 <code>&lt;meta&gt;</code> 標籤中定義一系列策略，網站可以告訴瀏覽器允許從哪些來源載入哪些類型的資源（如腳本、樣式表、圖片等）。這本質上是一個白名單機制。<br>CSP 並不能完全阻止 XSS 注入，但它可以極大地限制被注入腳本的執行能力，例如禁止內聯腳本 (<code>&lt;script&gt;... &lt;/script&gt;</code>)、禁止從未知來源加載外部腳本、限制表單提交的目標等。它是作為<strong>縱深防禦</strong>的重要一環，即使其他防禦措施失效，CSP 也能降低攻擊的影響。<br>常見的 CSP 指令 (Directive) 包括：</p>
+<ul>
+<li><code>default-src</code>: 所有資源的預設策略。</li>
+<li><code>script-src</code>: 規定腳本的允許來源。</li>
+<li><code>img-src</code>: 規定圖片的允許來源。</li>
+<li><code>connect-src</code>: 規定 XMLHttpRequest, WebSockets 等連線的允許目標。</li>
+<li><code>style-src</code>: 規定樣式表的允許來源。</li>
+<li><code>Maps-to</code>: 限制頁面導航和表單提交的目標 URL。</li>
+</ul>
+</li>
+</ol>
+<h2 id="CSP-的繞過-CSP-Bypassing"><a href="#CSP-的繞過-CSP-Bypassing" class="headerlink" title="CSP 的繞過 (CSP Bypassing)"></a>CSP 的繞過 (CSP Bypassing)</h2><p>儘管 CSP 提供了強大的保護，但配置不當的策略仍然可能被繞過。例如，如果 CSP 的 <code>script-src</code> 策略允許從一個包含 JSONP 端點的域名加載腳本，攻擊者可能可以利用 JSONP 的回調機制來執行任意 JavaScript，即使網站本身沒有直接的 XSS 漏洞。這提醒我們 CSP 配置需要非常謹慎，且不能僅依賴 CSP。</p>
+<h2 id="JavaScript-偽協議-javascript-pseudo-protocol"><a href="#JavaScript-偽協議-javascript-pseudo-protocol" class="headerlink" title="JavaScript 偽協議 (javascript: pseudo-protocol)"></a>JavaScript 偽協議 (javascript: pseudo-protocol)</h2><p><code>javascript:</code> 偽協議允許在 URL 或某些 HTML 屬性（如 <code>&lt;a href=&quot;...&quot;&gt;</code>, <code>&lt;img src=&quot;...&quot;&gt;</code>）中使用 JavaScript 代碼。例如 <code>&lt;a href=&quot;javascript:alert(1)&quot;&gt;點我&lt;/a&gt;</code>。如果不對使用者輸入的 URL 或屬性值進行驗證和過濾，攻擊者可以注入這樣的連結來觸發 JavaScript 執行，這也是 XSS 的一種表現形式。</p>
+<h2 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h2><p>Cross-Site Scripting (XSS) 是一個嚴重的 Web 安全問題，它可以讓攻擊者在其他使用者的瀏覽器上執行惡意程式碼。理解 Reflected, Stored, 和 DOM-based XSS 的區別對於識別和防禦漏洞至關重要。防禦 XSS 需要一個多層次的方法：優先對所有使用者輸出進行<strong>嚴格的編碼&#x2F;轉義</strong>；在允許富文本的場景下使用<strong>安全的 HTML 過濾庫 (如 DOMPurify)<strong>；並配置</strong>強大的 Content Security Policy (CSP)</strong> 作為最後一道防線。始終記住，對使用者輸入保持警惕，並在輸出時假設它是不可信的，是防止 XSS 的關鍵原則。</p>
+
+      </section>
+
+      
+      
+        <nav class="article-nav">
+          
+            <div class="article-nav-item layout-padding">
+  <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
+    
+    <div class="card-text">
+      
+        <a href="/2025/07/25/google-hacking/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">(no title)</h2>
+        </a>
+      
+      <div class="card-text--row">Newer</div>
+    </div>
+  </article>
+</div>
+          
+          
+            <div class="article-nav-item layout-padding">
+  <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
+    
+    <div class="card-text">
+      
+        <a href="/2025/07/25/intro-cryptography/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">密碼學介紹</h2>
+        </a>
+      
+      <div class="card-text--row">Older</div>
+    </div>
+  </article>
+</div>
+          
+        </nav>
+      
+
+      <section class="page-message-container layout-padding">
+        
+
+
+  <h3 class="widget-title">留言</h3>
+  
+  
+
+  
+  
+
+
+      </section>
+    </div>
+    <div class="widget-info">
+      <section class="widget-author widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-body">
+    
+      <img src="https://public-imgbed.pages.dev/file/1739948460764_image.png" class="soft-size--round soft-style--box" alt="Luc Chang">
+    
+    
+      <h2>Luc Chang</h2>
+    
+    
+      <p>菜機工程師努力便強大</p>
+    
+
+    <div class="count-box">
+      <div class="count-box--item">
+        <svg class="icon icon-article" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M240.51564747 647.74217627h196.07203239c16.59071043 0 30.16492806-13.57421762 30.16492805-30.16492806V165.10332731c0-33.18142087-30.16492806-60.32985613-60.32985612-60.32985611H245.04038668C225.43318342 104.7734712 210.35071939 119.85593522 210.35071939 139.46313845V617.57724821c0 16.59071043 13.57421762 30.16492806 30.16492808 30.16492806z m663.62841731-452.47392089v482.63884894c0 33.18142087-27.14843525 60.32985613-60.32985612 60.32985613H180.18579134c-33.18142087 0-60.32985613-27.14843525-60.32985612-60.32985613V195.26825538c-49.77213131 0-90.49478418 40.72265287-90.49478417 90.49478417v452.4739209c0 49.77213131 40.72265287 90.49478418 90.49478417 90.49478417h286.56681657c16.59071043 0 30.16492806 13.57421762 30.16492807 30.16492807s13.57421762 30.16492806 30.16492805 30.16492806h90.49478418c16.59071043 0 30.16492806-13.57421762 30.16492805-30.16492806s13.57421762-30.16492806 30.16492807-30.16492807h286.56681657c49.77213131 0 90.49478418-40.72265287 90.49478417-90.49478417V285.76303955c0-49.77213131-40.72265287-90.49478418-90.49478417-90.49478417zM587.41232014 647.74217627h191.54729318c19.60720323 0 34.68966726-15.08246403 34.68966729-34.68966727V134.93839925c0-16.59071043-13.57421762-30.16492806-30.16492808-30.16492805H617.57724821c-30.16492806 0-60.32985613 27.14843525-60.32985612 60.32985611v452.4739209c0 16.59071043 13.57421762 30.16492806 30.16492805 30.16492806z" fill="currentColor"></path>
+</svg>
+        <span>10</span>
+      </div>
+      <div class="count-box--item">
+        <svg class="icon icon-categories" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M900.3614811 257.09082106h-339.81629553l-67.96326003-101.9448889c-19.41807444-29.12711113-48.54518557-43.69066667-82.52681443-43.69066667H123.6385189c-53.39970333 0-97.09036999 43.69066667-97.09037113 97.09036999v582.54222222c0 53.39970333 43.69066667 97.09036999 97.09037113 97.09037002h776.7229622c53.39970333 0 97.09036999-43.69066667 97.09037113-97.09037002V354.18119104c0-53.39970333-43.69066667-97.09036999-97.09037113-97.09036998z m-97.09036999 242.72592554H220.72888889c-24.27259221 0-48.54518557-24.27259221-48.54518556-48.54518556s24.27259221-48.54518557 48.54518556-48.54518444h582.54222222c24.27259221 0 48.54518557 24.27259221 48.54518556 48.54518444s-24.27259221 48.54518557-48.54518556 48.54518556z" fill="currentColor"></path>
+</svg>
+        0
+      </div>
+      <div class="count-box--item">
+        <svg class="icon icon-tags" viewBox="0 0 1098 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M283.42180005 272q0-28.38857157-20.09142843-48.48000001t-48.47999998-20.09142842-48.48000002 20.09142842-20.09142846 48.48000001 20.09142846 48.48 48.48000002 20.09142843 48.47999998-20.09142843 20.09142843-48.48zM855.0332285 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.03999997 263.58857157q-20.9142853 19.81714313-48.75428534 19.81714312-28.38857157 0-48.20571468-19.81714312l-383.04-383.58857157q-20.36571468-19.81714313-34.55999999-54.10285688t-14.19428534-62.6742853l0-222.85714313q0-27.84000002 20.36571469-48.20571469t48.2057147-20.36571466l222.85714313 0q28.38857157 0 62.6742853 14.19428529t54.65142842 34.55999999l383.04000001 382.49142843q19.81714313 20.9142853 19.81714314 48.75428532zM1060.74751475 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.04 263.58857157q-20.9142853 19.81714313-48.75428531 19.81714312-19.26857155 0-31.61142843-7.47428531t-28.38857159-24.13714314l251.79428534-251.7942853q19.81714313-19.81714313 19.81714308-48.20571469 0-27.84000002-19.81714308-48.75428531l-383.04000001-382.49142845q-20.36571468-20.36571468-54.65142842-34.55999999t-62.67428532-14.19428534l120 0q28.38857157 0 62.67428532 14.19428534t54.65142842 34.55999999l383.03999998 382.49142845q19.81714313 20.9142853 19.81714314 48.75428531z" fill="currentColor"></path>
+</svg>
+        9
+      </div>
+    </div>
+  </div>
+</section>
+
+      
+
+      
+
+      <section class="widget-categories widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-title">
+    <svg class="icon icon-categories" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M900.3614811 257.09082106h-339.81629553l-67.96326003-101.9448889c-19.41807444-29.12711113-48.54518557-43.69066667-82.52681443-43.69066667H123.6385189c-53.39970333 0-97.09036999 43.69066667-97.09037113 97.09036999v582.54222222c0 53.39970333 43.69066667 97.09036999 97.09037113 97.09037002h776.7229622c53.39970333 0 97.09036999-43.69066667 97.09037113-97.09037002V354.18119104c0-53.39970333-43.69066667-97.09036999-97.09037113-97.09036998z m-97.09036999 242.72592554H220.72888889c-24.27259221 0-48.54518557-24.27259221-48.54518556-48.54518556s24.27259221-48.54518557 48.54518556-48.54518444h582.54222222c24.27259221 0 48.54518557 24.27259221 48.54518556 48.54518444s-24.27259221 48.54518557-48.54518556 48.54518556z" fill="currentColor"></path>
+</svg>
+      <span>CATEGORIES</span>
+  </div>
+  <div class="widget-body">
+    <ul class="categories-list">
+      
+    </ul>
+  </div>
+</section>
+
+      <section class="widget-tags widget-item  layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-title">
+    <svg class="icon icon-tags" viewBox="0 0 1098 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M283.42180005 272q0-28.38857157-20.09142843-48.48000001t-48.47999998-20.09142842-48.48000002 20.09142842-20.09142846 48.48000001 20.09142846 48.48 48.48000002 20.09142843 48.47999998-20.09142843 20.09142843-48.48zM855.0332285 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.03999997 263.58857157q-20.9142853 19.81714313-48.75428534 19.81714312-28.38857157 0-48.20571468-19.81714312l-383.04-383.58857157q-20.36571468-19.81714313-34.55999999-54.10285688t-14.19428534-62.6742853l0-222.85714313q0-27.84000002 20.36571469-48.20571469t48.2057147-20.36571466l222.85714313 0q28.38857157 0 62.6742853 14.19428529t54.65142842 34.55999999l383.04000001 382.49142843q19.81714313 20.9142853 19.81714314 48.75428532zM1060.74751475 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.04 263.58857157q-20.9142853 19.81714313-48.75428531 19.81714312-19.26857155 0-31.61142843-7.47428531t-28.38857159-24.13714314l251.79428534-251.7942853q19.81714313-19.81714313 19.81714308-48.20571469 0-27.84000002-19.81714308-48.75428531l-383.04000001-382.49142845q-20.36571468-20.36571468-54.65142842-34.55999999t-62.67428532-14.19428534l120 0q28.38857157 0 62.67428532 14.19428534t54.65142842 34.55999999l383.03999998 382.49142845q19.81714313 20.9142853 19.81714314 48.75428531z" fill="currentColor"></path>
+</svg>
+    <span>TAGS</span>
+  </div>
+  <div class="widget-body">
+    <div class="tags-cloud">
+      <a href="/tags/HITCON-2025-%E8%B3%87%E8%A8%8A%E5%AE%89%E5%85%A8/" style="font-size: 10px;" class="tags-cloud-0">HITCON 2025, 資訊安全</a> <a href="/tags/Linux/" style="font-size: 10px;" class="tags-cloud-0">Linux</a> <a href="/tags/cryptography-%E8%B3%87%E8%A8%8A%E5%AE%89%E5%85%A8/" style="font-size: 10px;" class="tags-cloud-0">cryptography, 資訊安全</a> <a href="/tags/cyber-security-reverse/" style="font-size: 10px;" class="tags-cloud-0">cyber-security, reverse</a> <a href="/tags/google-hacking-%E8%B3%87%E8%A8%8A%E5%AE%89%E5%85%A8/" style="font-size: 10px;" class="tags-cloud-0">google-hacking, 資訊安全</a> <a href="/tags/pwntools/" style="font-size: 10px;" class="tags-cloud-0">pwntools</a> <a href="/tags/web/" style="font-size: 10px;" class="tags-cloud-0">web</a> <a href="/tags/web-security-intro-blog/" style="font-size: 10px;" class="tags-cloud-0">web-security, intro-blog</a> <a href="/tags/%E5%AF%86%E7%A2%BC%E5%AD%B8/" style="font-size: 10px;" class="tags-cloud-0">密碼學</a>
+    </div>
+  </div>
+</section>
+    </div>
+  </article>
+</div>
+
+    <!-- footer container -->
+<footer id="footer" class="footer">
+  <div class="footer-container">
+    
+    <div class="social-icons">
+      
+        
+          <a href="https://www.instagram.com/happyluc1114/" class="soft-size--primary soft-style--box" target="_blank" rel="noopener noreferrer">
+            <svg class="icon icon-ins" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M512 0C372.906667 0 355.541333 0.64 300.928 3.072 246.4 5.632 209.28 14.208 176.64 26.88c-33.664 13.056-62.250667 30.592-90.709333 59.050667S39.893333 142.933333 26.88 176.64C14.208 209.28 5.589333 246.4 3.072 300.928 0.512 355.541333 0 372.906667 0 512s0.64 156.458667 3.072 211.072c2.56 54.485333 11.136 91.648 23.808 124.288a251.093333 251.093333 0 0 0 59.050667 90.709333A250.368 250.368 0 0 0 176.64 997.12c32.682667 12.629333 69.802667 21.290667 124.288 23.808C355.541333 1023.488 372.906667 1024 512 1024s156.458667-0.64 211.072-3.072c54.485333-2.56 91.648-11.178667 124.288-23.808a251.648 251.648 0 0 0 90.709333-59.050667 250.026667 250.026667 0 0 0 59.050667-90.709333c12.629333-32.64 21.290667-69.802667 23.808-124.288 2.56-54.613333 3.072-71.978667 3.072-211.072s-0.64-156.458667-3.072-211.072c-2.56-54.485333-11.178667-91.690667-23.808-124.288a251.306667 251.306667 0 0 0-59.050667-90.709333A249.472 249.472 0 0 0 847.36 26.88c-32.64-12.672-69.802667-21.290667-124.288-23.808C668.458667 0.512 651.093333 0 512 0z m0 92.16c136.661333 0 152.96 0.682667 206.933333 3.029333 49.92 2.346667 77.013333 10.624 95.018667 17.706667 23.978667 9.258667 40.96 20.352 58.965333 38.229333 17.877333 17.92 28.970667 34.944 38.229334 58.922667 6.997333 18.005333 15.36 45.098667 17.621333 95.018667 2.432 54.016 2.986667 70.229333 2.986667 206.933333s-0.64 152.96-3.157334 206.933333c-2.602667 49.92-10.922667 77.013333-17.962666 95.018667a162.56 162.56 0 0 1-38.357334 58.965333 159.744 159.744 0 0 1-58.88 38.229334c-17.92 6.997333-45.44 15.36-95.36 17.621333-54.357333 2.432-70.357333 2.986667-207.317333 2.986667-137.002667 0-153.002667-0.64-207.317333-3.157334-49.962667-2.602667-77.482667-10.922667-95.402667-17.962666a158.549333 158.549333 0 0 1-58.837333-38.357334 155.477333 155.477333 0 0 1-38.4-58.88c-7.04-17.92-15.317333-45.44-17.92-95.36-1.92-53.76-2.602667-70.357333-2.602667-206.677333 0-136.362667 0.682667-153.002667 2.602667-207.402667 2.602667-49.92 10.88-77.397333 17.92-95.317333 8.96-24.32 20.437333-40.96 38.4-58.922667 17.877333-17.877333 34.56-29.397333 58.837333-38.314666 17.92-7.082667 44.842667-15.402667 94.762667-17.962667 54.4-1.92 70.4-2.56 207.317333-2.56l1.92 1.28z m0 156.928a262.912 262.912 0 1 0 0 525.824 262.912 262.912 0 1 0 0-525.824zM512 682.666667c-94.293333 0-170.666667-76.373333-170.666667-170.666667s76.373333-170.666667 170.666667-170.666667 170.666667 76.373333 170.666667 170.666667-76.373333 170.666667-170.666667 170.666667z m334.762667-443.946667a61.482667 61.482667 0 0 1-122.88 0 61.44 61.44 0 0 1 122.88 0z"></path>
+</svg>
+
+          </a>
+        
+      
+        
+      
+        
+      
+        
+          <a href="https://github.com/LucChang?tab=repositories" class="soft-size--primary soft-style--box" target="_blank" rel="noopener noreferrer">
+            <svg class="icon icon-github" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M64.6 512c0 195.6 125.4 361.9 300.1 422.9 23.5 5.9 19.9-10.8 19.9-22.2v-77.6c-135.8 15.9-141.3-74-150.5-89-18.5-31.5-61.9-39.5-49-54.5 31-15.9 62.5 4 98.9 58 26.4 39.1 77.9 32.5 104.1 26 5.7-23.5 17.9-44.5 34.7-60.9-140.7-25.2-199.4-111.1-199.4-213.3 0-49.5 16.4-95.1 48.4-131.8-20.4-60.6 1.9-112.4 4.9-120.1 58.2-5.2 118.5 41.6 123.3 45.3 33.1-8.9 70.8-13.7 112.9-13.7 42.4 0 80.3 4.9 113.5 13.9 11.3-8.6 67.3-48.8 121.4-43.9 2.9 7.7 24.7 58.3 5.5 118.1 32.5 36.8 49 82.8 49 132.4 0 102.3-59 188.3-200.2 213.2 23.5 23.3 38.1 55.5 38.1 91.1v112.7c0.8 9 0 17.9 15.1 17.9C832.7 877 960.4 709.4 960.4 512.1c0-247.5-200.6-447.9-447.9-447.9C265 64.1 64.6 264.5 64.6 512z"></path>
+</svg>
+          </a>
+        
+      
+        
+          <a href="https://x.com/longmayi248272" class="soft-size--primary soft-style--box" target="_blank" rel="noopener noreferrer">
+            <svg class="icon icon-twitter" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M962.285714 233.142857q-38.285714 56-92.571429 95.428571 0.571429 8 0.571429 24 0 74.285714-21.714286 148.285714t-66 142-105.428571 120.285714-147.428571 83.428571-184.571429 31.142857q-154.857143 0-283.428571-82.857143 20 2.285714 44.571429 2.285714 128.571429 0 229.142857-78.857143-60-1.142857-107.428571-36.857143t-65.142857-91.142857q18.857143 2.857143 34.857143 2.857143 24.571429 0 48.571429-6.285714-64-13.142857-106-63.714286t-42-117.428571l0-2.285714q38.857143 21.714286 83.428571 23.428571-37.714286-25.142857-60-65.714286t-22.285714-88q0-50.285714 25.142857-93.142857 69.142857 85.142857 168.285714 136.285714t212.285714 56.857143q-4.571429-21.714286-4.571429-42.285714 0-76.571429 54-130.571429t130.571429-54q80 0 134.857143 58.285714 62.285714-12 117.142857-44.571429-21.142857 65.714286-81.142857 101.714286 53.142857-5.714286 106.285714-28.571429z"></path>
+</svg>
+          </a>
+        
+      
+    </div>
+     
+    <p>&copy; 2025 <a href="/" target="_blank">LucChang</a></p>
+
+    
+
+    <p>Powered by <a href="https://hexo.io" target="_blank" rel="noopener noreferrer">Hexo</a> Theme - <a href="https://github.com/miiiku/flex-block" target="_blank" rel="noopener noreferrer author">flex-block</a></p>
+
+    <p>
+      <a href="javascript:;" id="theme-light">🌞 浅色</a>
+      <a href="javascript:;" id="theme-dark">🌛 深色</a>
+      <a href="javascript:;" id="theme-auto">🤖️ 自动</a>
+    </p>
+  </div>
+</footer>
+  </div>
+
+  <div class="back-to-top-fixed soft-size--round soft-style--box">
+    <svg class="icon icon-back-to-top" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+      <path d="M725.333333 426.666667c-12.8 0-21.333333-4.266667-29.866667-12.8l-213.333333-213.333333c-17.066667-17.066667-17.066667-42.666667 0-59.733333s42.666667-17.066667 59.733333 0l213.333333 213.333333c17.066667 17.066667 17.066667 42.666667 0 59.733333C746.666667 422.4 738.133333 426.666667 725.333333 426.666667z"></path>
+      <path d="M298.666667 426.666667c-12.8 0-21.333333-4.266667-29.866667-12.8-17.066667-17.066667-17.066667-42.666667 0-59.733333l213.333333-213.333333c17.066667-17.066667 42.666667-17.066667 59.733333 0s17.066667 42.666667 0 59.733333l-213.333333 213.333333C320 422.4 311.466667 426.666667 298.666667 426.666667z"></path>
+      <path d="M512 896c-25.6 0-42.666667-17.066667-42.666667-42.666667L469.333333 170.666667c0-25.6 17.066667-42.666667 42.666667-42.666667s42.666667 17.066667 42.666667 42.666667l0 682.666667C554.666667 878.933333 537.6 896 512 896z"></path>
+    </svg>
+  </div>
+
+  
+  
+
+
+
+
+
+
+<!-- copy button  -->
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
+
+<!-- https://clipboardjs.com/ -->
+
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+  
+  <!-- 尾部用户自定义相关内容 -->
+</body>
+</html>
